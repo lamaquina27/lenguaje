@@ -1,0 +1,7 @@
+principal {
+    var y = 2;
+    mientras(y<=4){
+        mueche(y);
+        y = y +1;
+    }
+}
