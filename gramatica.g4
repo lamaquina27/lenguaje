@@ -23,7 +23,7 @@ ciclo_while:MIENTRAS PAR_IZQ expresion_si PAR_DER LLAVE_IZQ instrucciones LLAVE_
 
 
 expresion
-    : expresion op=(MAS|MENOS) expresion # Suma
+    : expresion op=(MAS|MENOS) expresion #Suma
     | expresion op=(MUL|DIV) expresion  #Mul
     | expresion op=(MODULO|ELEVACION) expresion #Mod
     | PAR_IZQ expresion PAR_DER #Par
@@ -46,7 +46,7 @@ MIENTRAS:'mientras';
 PARA:'para';
 
 
-PALABRAS:MENOR (~["\r\n])* MAYOR;
+PALABRAS:MENOR (~["\r\n])* | [0-9]+ MAYOR;
 MAS :'+';
 MENOS:'-';
 MUL:'*';

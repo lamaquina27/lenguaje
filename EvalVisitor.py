@@ -20,7 +20,10 @@ class EvalVisitor(gramaticaVisitor):
         der=self.visit(ctx.expresion(1))
         
         if ctx.op.type == gramaticaParser.MAS:
-            return izq + der
+            if isinstance(izq, str) or isinstance (der, str):
+                return str(izq) + str(der)
+            else:
+                return izq + der
         else:
             return izq - der 
     #devuelve la multiplicacion o la division de los numeros 
@@ -40,7 +43,7 @@ class EvalVisitor(gramaticaVisitor):
         else:
             return izq ** der 
     #evaua la expresion de lo parentesis
-    def visitParen(self,ctx):
+    def visitPar(self,ctx):
     
         return self.visit(ctx.expresion())
     #guarda la variable en el diccionario de la memoria
