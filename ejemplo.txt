@@ -1,7 +1,7 @@
 principal {
-    var y = 2;
-    mientras(y<=4){
-        mueche(y);
-        y = y +1;
+    var y = 4;    
+    para(var x =0;x<y;x=x+1;){
+        mueche(x);
+        
     }
 }

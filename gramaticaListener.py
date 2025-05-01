@@ -71,6 +71,15 @@ class gramaticaListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by gramaticaParser#For.
+    def enterFor(self, ctx:gramaticaParser.ForContext):
+        pass
+
+    # Exit a parse tree produced by gramaticaParser#For.
+    def exitFor(self, ctx:gramaticaParser.ForContext):
+        pass
+
+
     # Enter a parse tree produced by gramaticaParser#declaracion.
     def enterDeclaracion(self, ctx:gramaticaParser.DeclaracionContext):
         pass

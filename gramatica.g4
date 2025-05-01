@@ -18,7 +18,7 @@ impresion: MUECHE PAR_IZQ expresion PAR_DER PUNTO_COMA;
 asignacion: ID IGUAL expresion PUNTO_COMA;
 condicion: CHI PAR_IZQ expresion_si PAR_DER LLAVE_IZQ instrucciones LLAVE_DER (condicion_si_no)?;
 condicion_si_no: SINO LLAVE_IZQ instrucciones LLAVE_DER;
-ciclo_for: PARA PAR_IZQ declaracion PUNTO_COMA expresion_si PUNTO_COMA ID MAS NUMERO PAR_DER LLAVE_IZQ instrucciones LLAVE_DER;
+ciclo_for: PARA PAR_IZQ declaracion  expresion_si PUNTO_COMA asignacion PAR_DER LLAVE_IZQ instrucciones LLAVE_DER;
 ciclo_while:MIENTRAS PAR_IZQ expresion_si PAR_DER LLAVE_IZQ instrucciones LLAVE_DER;
 
 
@@ -60,7 +60,7 @@ LLAVE_DER:'}';
 LLAVE_IZQ:'{';
 ID:[a-zA-Z_][A-Za-z0-9]*; 
 NUMERO:[0-9]+;
-PALABRAS:COMILLAS [a-zA-Z]+ COMILLAS;
+PALABRAS:MENOR [a-zA-Z]+ MENOR;
 PUNTO_COMA:';';
 WS:[ \t\n\r]-> skip;
 

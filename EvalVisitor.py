@@ -39,13 +39,17 @@ class EvalVisitor(gramaticaVisitor):
     
         return self.visit(ctx.expresion())
     #guarda la variable en el diccionario de la memoria
-    def visitDec(self,ctx):
-        variable = ctx.declaracion().ID().getText()
-        
-        valor = self.visit(ctx.declaracion().expresion())
+    def visitDeclaracion(self, ctx):
+        variable = ctx.ID().getText()
+        valor = self.visit(ctx.expresion())
         self.memory[variable] = valor
         
-        return valor
+        return self.memory[variable]
+
+    def visitDec(self, ctx):
+        
+        return self.visit(ctx.declaracion())  # Esto ahora llama correctamente a visitDeclaracion
+
     #obtiene el valor de la variable almacenada
     def visitId(self, ctx):
         nombre = ctx.ID().getText()
@@ -61,21 +65,24 @@ class EvalVisitor(gramaticaVisitor):
         impre = self.visit(ctx.impresion().expresion())
         print(impre)
         return impre
-    def visitAsi(self,ctx):
-        nombre = ctx.asignacion().ID().getText()
+    def visitAsignacion(self,ctx):
+        nombre = ctx.ID().getText()
         
-        if self.memory[nombre]:
-            valor = self.visit(ctx.asignacion().expresion())
+        if self.memory[nombre] or self.memory[nombre]==0 :
+            valor = self.visit(ctx.expresion())
             
             self.memory[nombre] = valor
             
-            return self.memory[nombre]
+            return valor
         else:
             print("por favor declara la variable antes de")
             return 
+    def visitAsi(self,ctx):
+        return self.visit(ctx.asignacion())
     #------------------------------------funciones de expresion_si-----------------------------
     #obtiene el valor de la variable almacenada
     def visitIdsi(self, ctx):
+        
         return self.visitId(ctx)
     
     #evalua si la expresion es == o !=
@@ -108,11 +115,11 @@ class EvalVisitor(gramaticaVisitor):
 
     def visitExpresion_si(self, ctx):
     
+    
         return self.visitChildren(ctx)
 
     def visitIntsi(self,ctx):
         return self.visitInt(ctx)
-    
 
     #---------------------------------------funcion visti para while-------------------------
     def visitWhile(self,ctx):
@@ -122,5 +129,15 @@ class EvalVisitor(gramaticaVisitor):
                 self.visit(ctx.ciclo_while().instrucciones())
                 condicion=self.visit(ctx.ciclo_while().expresion_si())
     def visitFor(self,ctx):
-        condicion=self.visit(ctx.ciclo_for().expresion_si())
-        declaracion=self.visit(ctx.ciclo_for().declaracion())
+            # Ejecuta la declaración: var x = 0;
+        self.visit(ctx.ciclo_for().declaracion())
+
+        # Ejecuta el bucle
+        while self.visit(ctx.ciclo_for().expresion_si()):
+            # Ejecuta las instrucciones del cuerpo
+            self.visit(ctx.ciclo_for().instrucciones())
+            
+            # Ejecuta la asignación: x = x + 1;
+            self.visit(ctx.ciclo_for().asignacion())
+     
+       
