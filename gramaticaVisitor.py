@@ -84,6 +84,11 @@ class gramaticaVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by gramaticaParser#bloque_funcion.
+    def visitBloque_funcion(self, ctx:gramaticaParser.Bloque_funcionContext):
+        return self.visitChildren(ctx)
+
+
     # Visit a parse tree produced by gramaticaParser#declaracion.
     def visitDeclaracion(self, ctx:gramaticaParser.DeclaracionContext):
         return self.visitChildren(ctx)

@@ -143,6 +143,15 @@ class gramaticaListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by gramaticaParser#bloque_funcion.
+    def enterBloque_funcion(self, ctx:gramaticaParser.Bloque_funcionContext):
+        pass
+
+    # Exit a parse tree produced by gramaticaParser#bloque_funcion.
+    def exitBloque_funcion(self, ctx:gramaticaParser.Bloque_funcionContext):
+        pass
+
+
     # Enter a parse tree produced by gramaticaParser#declaracion.
     def enterDeclaracion(self, ctx:gramaticaParser.DeclaracionContext):
         pass

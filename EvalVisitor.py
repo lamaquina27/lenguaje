@@ -36,8 +36,10 @@ class EvalVisitor(gramaticaVisitor):
         if definicion.argumentos():
             parametros = [p.getText() for p in definicion.argumentos().expresion()]
 
-        instrucciones_texto = definicion.BLOQUE_FUNCION().getText()
-        instrucciones_ctx = self.parsear_instrucciones(instrucciones_texto)
+
+        bloque_texto = definicion.BLOQUE_FUNCION().getText()
+        instrucciones_ctx = self.parsear_instrucciones(bloque_texto)
+
 
         self.funciones[nombre] = {
             "parametros": parametros,
@@ -52,66 +54,59 @@ class EvalVisitor(gramaticaVisitor):
 
     
     def visitLlamada_funcion(self, ctx):
-        nombre = ctx.ID().getText()
+        nombre = ctx.nombre.text
         argumentos = []
 
         if ctx.argumentos():
             argumentos = [self.visit(e) for e in ctx.argumentos().expresion()]
 
-        # Verificar si es interna
+        # Función definida internamente
         if nombre in self.funciones:
             funcion = self.funciones[nombre]
-
             if len(funcion["parametros"]) != len(argumentos):
                 raise Exception("Número incorrecto de argumentos.")
-
+            
             memoria_anterior = self.memory.copy()
-
             for param, arg in zip(funcion["parametros"], argumentos):
                 self.memory[param] = arg
-
             self.visit(funcion["cuerpo"])
-
             self.memory = memoria_anterior
             return None
 
-        # Verificar si es librería
+        # Función en librerías
         for libreria in self.librerias.values():
             if hasattr(libreria, nombre):
                 metodo = getattr(libreria, nombre)
                 return metodo(*argumentos)
 
         raise Exception(f"Función '{nombre}' no encontrada.")
+
     
 
-    def visitLlamadaFunc(self, ctx):
-          # Validar que existe el ID
-        if ctx.getChildCount() < 2 or ctx.getChild(1) is None:
+    """def visitLlamadaFunc(self, ctx):
+        nombre = ctx.getChild(1).getText()
+        if nombre is None:
             raise Exception("Error: llamada de función sin nombre.")
 
-        nombre = ctx.getChild(1).getText()
         argumentos = []
 
-        child_count = ctx.getChildCount()
+        if ctx.argumentos():
+            argumentos = [self.visit(e) for e in ctx.argumentos().expresion()]
 
-        if child_count > 4:
-            argumentos_ctx = ctx.getChild(3)
-            argumentos = [self.visit(e) for e in argumentos_ctx.expresion()]
-
-        # Verificar si es interna
+        # Verificar si es función interna
         if nombre in self.funciones:
             funcion = self.funciones[nombre]
 
             if len(funcion["parametros"]) != len(argumentos):
                 raise Exception("Número incorrecto de argumentos.")
 
-            # Guardar variables temporales
+            # Guardar memoria temporal
             memoria_anterior = self.memory.copy()
 
             for param, arg in zip(funcion["parametros"], argumentos):
                 self.memory[param] = arg
 
-            # Ejecutar el cuerpo
+            # Ejecutar cuerpo
             self.visit(funcion["cuerpo"])
 
             # Restaurar memoria
@@ -129,8 +124,7 @@ class EvalVisitor(gramaticaVisitor):
 
 
 
-
-
+"""
 
 
 

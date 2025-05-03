@@ -1,8 +1,8 @@
 principal {
     var y = 4;    
-    para(var x =0;x<y;x=x+1;){
+    
+    para(var x = 0; x < y; x = x + 1;){
         mueche(x);
-        
     }
 
     mueche(<esto entró?>);
@@ -11,7 +11,7 @@ principal {
         var k = x * y;
         var j = k + x;
         mueche(j);
-        "
-    
+    "
+
     ..prueba(2; 5);
 }

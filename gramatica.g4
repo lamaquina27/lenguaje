@@ -22,8 +22,11 @@ instruccion
     ;
 
 definicion_funcion: FUNCA ID PREG_IZQ argumentos? PREG_DER BLOQUE_FUNCION;
-llamada_funcion: PUNTOPUNTO ID PAR_IZQ argumentos? PAR_DER PUNTO_COMA;
+llamada_funcion: PUNTOPUNTO nombre=ID PAR_IZQ argumentos? PAR_DER PUNTO_COMA;
 argumentos: expresion (PUNTO_COMA expresion)*;
+
+bloque_funcion: COMILLAS instrucciones? COMILLAS;
+
 
 declaracion: VAR ID IGUAL expresion PUNTO_COMA; 
 impresion: MUECHE PAR_IZQ expresion PAR_DER PUNTO_COMA;
@@ -57,6 +60,8 @@ MIENTRAS:'mientras';
 PARA:'para';
 
 
+BLOQUE_FUNCION: '"' ( . | '\r' | '\n' )*? '"';
+
 
 TRAIGASE: 'traigase';
 FUNCA: 'funca';
@@ -64,7 +69,6 @@ PUNTO: '.';
 PUNTOPUNTO : '..';
 PREG_DER:'?';
 PREG_IZQ:'¿';
-BLOQUE_FUNCION: '"' ( ~["] | '\n' | '\r' )* '"';
 
 
 MAS : '+';
@@ -95,4 +99,4 @@ MENOR_IGUAL: '<=';
 AND: '&&';
 OR: '||';
 NOT: '!';
-COMILLAS:'"';
+COMILLAS: '"' -> channel(HIDDEN);
