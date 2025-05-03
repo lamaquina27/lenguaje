@@ -1,8 +1,14 @@
 grammar gramatica;
 
-programa: PRINCIPAL LLAVE_IZQ instrucciones? LLAVE_DER;
+options { visitor = true; }
+
+programa: importaciones? PRINCIPAL LLAVE_IZQ instrucciones? LLAVE_DER;
+
+importaciones: importacion+;
+importacion: TRAIGASE ID PUNTO_COMA;
 
 instrucciones: instruccion+;
+
 
 instruccion
     : declaracion #Dec
@@ -11,7 +17,13 @@ instruccion
     | asignacion #Asi
     | ciclo_while #While
     | ciclo_for #For
+    | definicion_funcion #DefFunc
+    | llamada_funcion #LlamadaFunc
     ;
+
+definicion_funcion: FUNCA ID PREG_IZQ argumentos? PREG_DER BLOQUE_FUNCION;
+llamada_funcion: PUNTOPUNTO ID PAR_IZQ argumentos? PAR_DER PUNTO_COMA;
+argumentos: expresion (PUNTO_COMA expresion)*;
 
 declaracion: VAR ID IGUAL expresion PUNTO_COMA; 
 impresion: MUECHE PAR_IZQ expresion PAR_DER PUNTO_COMA;
@@ -28,8 +40,8 @@ expresion
     | expresion op=(MODULO|ELEVACION) expresion #Mod
     | PAR_IZQ expresion PAR_DER #Par
     | NUMERO #Int
-    | ID #Id
     | PALABRAS #Palabras
+    | ID #Id
     ;
 expresion_si
     : expresion_si op=(IGUALDAD|DIFERENTE|MAYOR|MAYOR_IGUAL|MENOR|MENOR_IGUAL) expresion_si #Igu
@@ -46,6 +58,14 @@ PARA:'para';
 
 
 
+TRAIGASE: 'traigase';
+FUNCA: 'funca';
+PUNTO: '.';
+PUNTOPUNTO : '..';
+PREG_DER:'?';
+PREG_IZQ:'¿';
+BLOQUE_FUNCION: '"' ( ~["] | '\n' | '\r' )* '"';
+
 
 MAS : '+';
 MENOS:'-';
@@ -58,11 +78,13 @@ PAR_DER:')';
 PAR_IZQ:'(';
 LLAVE_DER:'}';
 LLAVE_IZQ:'{';
-ID:[a-zA-Z_][A-Za-z0-9]*; 
+ID: [a-zA-Z_][a-zA-Z0-9_]*;
 NUMERO:[0-9]+;
-PALABRAS:MENOR [a-zA-Z]+ MENOR;
+PALABRAS:'<' (~[<>])+ '>';
 PUNTO_COMA:';';
-WS:[ \t\n\r]-> skip;
+NL: ('\n'|'\r')+ -> skip;
+WS: [ \t]+ -> skip;
+
 
 IGUALDAD: '==';
 DIFERENTE: '!=';
@@ -74,5 +96,3 @@ AND: '&&';
 OR: '||';
 NOT: '!';
 COMILLAS:'"';
-
-STRING: PAR_IZQ PALABRAS PAR_DER;

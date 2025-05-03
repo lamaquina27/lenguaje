@@ -17,6 +17,24 @@ class gramaticaListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by gramaticaParser#importaciones.
+    def enterImportaciones(self, ctx:gramaticaParser.ImportacionesContext):
+        pass
+
+    # Exit a parse tree produced by gramaticaParser#importaciones.
+    def exitImportaciones(self, ctx:gramaticaParser.ImportacionesContext):
+        pass
+
+
+    # Enter a parse tree produced by gramaticaParser#importacion.
+    def enterImportacion(self, ctx:gramaticaParser.ImportacionContext):
+        pass
+
+    # Exit a parse tree produced by gramaticaParser#importacion.
+    def exitImportacion(self, ctx:gramaticaParser.ImportacionContext):
+        pass
+
+
     # Enter a parse tree produced by gramaticaParser#instrucciones.
     def enterInstrucciones(self, ctx:gramaticaParser.InstruccionesContext):
         pass
@@ -77,6 +95,51 @@ class gramaticaListener(ParseTreeListener):
 
     # Exit a parse tree produced by gramaticaParser#For.
     def exitFor(self, ctx:gramaticaParser.ForContext):
+        pass
+
+
+    # Enter a parse tree produced by gramaticaParser#DefFunc.
+    def enterDefFunc(self, ctx:gramaticaParser.DefFuncContext):
+        pass
+
+    # Exit a parse tree produced by gramaticaParser#DefFunc.
+    def exitDefFunc(self, ctx:gramaticaParser.DefFuncContext):
+        pass
+
+
+    # Enter a parse tree produced by gramaticaParser#LlamadaFunc.
+    def enterLlamadaFunc(self, ctx:gramaticaParser.LlamadaFuncContext):
+        pass
+
+    # Exit a parse tree produced by gramaticaParser#LlamadaFunc.
+    def exitLlamadaFunc(self, ctx:gramaticaParser.LlamadaFuncContext):
+        pass
+
+
+    # Enter a parse tree produced by gramaticaParser#definicion_funcion.
+    def enterDefinicion_funcion(self, ctx:gramaticaParser.Definicion_funcionContext):
+        pass
+
+    # Exit a parse tree produced by gramaticaParser#definicion_funcion.
+    def exitDefinicion_funcion(self, ctx:gramaticaParser.Definicion_funcionContext):
+        pass
+
+
+    # Enter a parse tree produced by gramaticaParser#llamada_funcion.
+    def enterLlamada_funcion(self, ctx:gramaticaParser.Llamada_funcionContext):
+        pass
+
+    # Exit a parse tree produced by gramaticaParser#llamada_funcion.
+    def exitLlamada_funcion(self, ctx:gramaticaParser.Llamada_funcionContext):
+        pass
+
+
+    # Enter a parse tree produced by gramaticaParser#argumentos.
+    def enterArgumentos(self, ctx:gramaticaParser.ArgumentosContext):
+        pass
+
+    # Exit a parse tree produced by gramaticaParser#argumentos.
+    def exitArgumentos(self, ctx:gramaticaParser.ArgumentosContext):
         pass
 
 

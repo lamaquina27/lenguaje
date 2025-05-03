@@ -4,4 +4,14 @@ principal {
         mueche(x);
         
     }
+
+    mueche(<esto entró?>);
+
+    funca prueba¿x;y?"
+        var k = x * y;
+        var j = k + x;
+        mueche(j);
+        "
+    
+    ..prueba(2; 5);
 }
