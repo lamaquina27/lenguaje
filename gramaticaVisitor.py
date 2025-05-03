@@ -69,6 +69,11 @@ class gramaticaVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by gramaticaParser#Ret.
+    def visitRet(self, ctx:gramaticaParser.RetContext):
+        return self.visitChildren(ctx)
+
+
     # Visit a parse tree produced by gramaticaParser#definicion_funcion.
     def visitDefinicion_funcion(self, ctx:gramaticaParser.Definicion_funcionContext):
         return self.visitChildren(ctx)
@@ -86,6 +91,11 @@ class gramaticaVisitor(ParseTreeVisitor):
 
     # Visit a parse tree produced by gramaticaParser#bloque_funcion.
     def visitBloque_funcion(self, ctx:gramaticaParser.Bloque_funcionContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by gramaticaParser#retorno.
+    def visitRetorno(self, ctx:gramaticaParser.RetornoContext):
         return self.visitChildren(ctx)
 
 
@@ -121,6 +131,11 @@ class gramaticaVisitor(ParseTreeVisitor):
 
     # Visit a parse tree produced by gramaticaParser#ciclo_while.
     def visitCiclo_while(self, ctx:gramaticaParser.Ciclo_whileContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by gramaticaParser#ExprLlamadaFunc.
+    def visitExprLlamadaFunc(self, ctx:gramaticaParser.ExprLlamadaFuncContext):
         return self.visitChildren(ctx)
 
 

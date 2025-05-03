@@ -116,6 +116,15 @@ class gramaticaListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by gramaticaParser#Ret.
+    def enterRet(self, ctx:gramaticaParser.RetContext):
+        pass
+
+    # Exit a parse tree produced by gramaticaParser#Ret.
+    def exitRet(self, ctx:gramaticaParser.RetContext):
+        pass
+
+
     # Enter a parse tree produced by gramaticaParser#definicion_funcion.
     def enterDefinicion_funcion(self, ctx:gramaticaParser.Definicion_funcionContext):
         pass
@@ -149,6 +158,15 @@ class gramaticaListener(ParseTreeListener):
 
     # Exit a parse tree produced by gramaticaParser#bloque_funcion.
     def exitBloque_funcion(self, ctx:gramaticaParser.Bloque_funcionContext):
+        pass
+
+
+    # Enter a parse tree produced by gramaticaParser#retorno.
+    def enterRetorno(self, ctx:gramaticaParser.RetornoContext):
+        pass
+
+    # Exit a parse tree produced by gramaticaParser#retorno.
+    def exitRetorno(self, ctx:gramaticaParser.RetornoContext):
         pass
 
 
@@ -212,6 +230,15 @@ class gramaticaListener(ParseTreeListener):
 
     # Exit a parse tree produced by gramaticaParser#ciclo_while.
     def exitCiclo_while(self, ctx:gramaticaParser.Ciclo_whileContext):
+        pass
+
+
+    # Enter a parse tree produced by gramaticaParser#ExprLlamadaFunc.
+    def enterExprLlamadaFunc(self, ctx:gramaticaParser.ExprLlamadaFuncContext):
+        pass
+
+    # Exit a parse tree produced by gramaticaParser#ExprLlamadaFunc.
+    def exitExprLlamadaFunc(self, ctx:gramaticaParser.ExprLlamadaFuncContext):
         pass
 
 

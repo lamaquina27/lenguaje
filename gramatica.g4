@@ -19,6 +19,7 @@ instruccion
     | ciclo_for #For
     | definicion_funcion #DefFunc
     | llamada_funcion #LlamadaFunc
+    | retorno #Ret
     ;
 
 definicion_funcion: FUNCA ID PREG_IZQ argumentos? PREG_DER BLOQUE_FUNCION;
@@ -26,6 +27,8 @@ llamada_funcion: PUNTOPUNTO nombre=ID PAR_IZQ argumentos? PAR_DER PUNTO_COMA;
 argumentos: expresion (PUNTO_COMA expresion)*;
 
 bloque_funcion: COMILLAS instrucciones? COMILLAS;
+
+retorno: MANDELE expresion PUNTO_COMA;
 
 
 declaracion: VAR ID IGUAL expresion PUNTO_COMA; 
@@ -41,6 +44,7 @@ expresion
     : expresion op=(MAS|MENOS) expresion # Suma
     | expresion op=(MUL|DIV) expresion  #Mul
     | expresion op=(MODULO|ELEVACION) expresion #Mod
+    | PUNTOPUNTO ID PAR_IZQ argumentos? PAR_DER #ExprLlamadaFunc  // ← NUEVA
     | PAR_IZQ expresion PAR_DER #Par
     | NUMERO #Int
     | PALABRAS #Palabras
@@ -58,6 +62,8 @@ CHI:'chi';
 SINO:'sino';
 MIENTRAS:'mientras';
 PARA:'para';
+MANDELE: 'mandele';
+
 
 
 BLOQUE_FUNCION: '"' ( . | '\r' | '\n' )*? '"';

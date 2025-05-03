@@ -67,11 +67,14 @@ class EvalVisitor(gramaticaVisitor):
                 raise Exception("Número incorrecto de argumentos.")
             
             memoria_anterior = self.memory.copy()
+            self.valor_retorno = None  # <-- LIMPIAR retorno previo
+
             for param, arg in zip(funcion["parametros"], argumentos):
                 self.memory[param] = arg
             self.visit(funcion["cuerpo"])
+            resultado = self.valor_retorno  # <-- CAPTURAR retorno
             self.memory = memoria_anterior
-            return None
+            return resultado
 
         # Función en librerías
         for libreria in self.librerias.values():
@@ -126,6 +129,46 @@ class EvalVisitor(gramaticaVisitor):
 
 """
 
+
+    def visitExprLlamadaFunc(self, ctx):
+        nombre = ctx.ID().getText()
+        argumentos = []
+
+        if ctx.argumentos():
+            argumentos = [self.visit(e) for e in ctx.argumentos().expresion()]
+
+        # Función interna
+        if nombre in self.funciones:
+            funcion = self.funciones[nombre]
+
+            if len(funcion["parametros"]) != len(argumentos):
+                raise Exception("Número incorrecto de argumentos.")
+
+            memoria_anterior = self.memory.copy()
+            self.valor_retorno = None
+
+            for param, arg in zip(funcion["parametros"], argumentos):
+                self.memory[param] = arg
+
+            self.visit(funcion["cuerpo"])
+
+            self.memory = memoria_anterior
+            return self.valor_retorno
+
+        # Función de librería
+        for libreria in self.librerias.values():
+            if hasattr(libreria, nombre):
+                metodo = getattr(libreria, nombre)
+                return metodo(*argumentos)
+
+        raise Exception(f"Función '{nombre}' no encontrada.")
+
+
+    
+    def visitRet(self, ctx):
+        valor = self.visit(ctx.retorno().expresion())
+        self.valor_retorno = valor
+        return valor
 
 
 

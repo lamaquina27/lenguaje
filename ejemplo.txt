@@ -1,9 +1,12 @@
 principal {
+
     var y = 4;    
     
-    para(var x = 0; x < y; x = x + 1;){
-        mueche(x);
-    }
+    funca suma¿p;r?
+    "
+    var res = p + r;
+    mueche(res);
+    "
 
     mueche(<esto entró?>);
 
@@ -13,5 +16,8 @@ principal {
         mueche(j);
     "
 
+    ..prueba(2;6);
     ..prueba(2; 5);
+    ..suma(2;3);
+    
 }
