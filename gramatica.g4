@@ -16,10 +16,11 @@ instruccion
 declaracion: VAR ID IGUAL expresion PUNTO_COMA; 
 impresion: MUECHE PAR_IZQ expresion PAR_DER PUNTO_COMA;
 asignacion: ID IGUAL expresion PUNTO_COMA;
-condicion: CHI PAR_IZQ expresion_si PAR_DER LLAVE_IZQ instrucciones LLAVE_DER (condicion_si_no)?;
+condicion: CHI PAR_IZQ expresion_verdad PAR_DER LLAVE_IZQ instrucciones LLAVE_DER (condicion_si_no)?;
 condicion_si_no: SINO LLAVE_IZQ instrucciones LLAVE_DER;
 ciclo_for: PARA PAR_IZQ declaracion  expresion_si PUNTO_COMA asignacion PAR_DER LLAVE_IZQ instrucciones LLAVE_DER;
-ciclo_while:MIENTRAS PAR_IZQ expresion_si PAR_DER LLAVE_IZQ instrucciones LLAVE_DER;
+
+ciclo_while:MIENTRAS PAR_IZQ expresion_verdad PAR_DER LLAVE_IZQ instrucciones LLAVE_DER;
 
 
 expresion
@@ -27,13 +28,25 @@ expresion
     | expresion op=(MUL|DIV) expresion  #Mul
     | expresion op=(MODULO|ELEVACION) expresion #Mod
     | PAR_IZQ expresion PAR_DER #Par
-    | NUMERO #Int
-    | ID #Id
     | PALABRAS #Palabras
+    | atomo #Atomo_uno
     ;
+expresion_verdad
+    : expresion_verdad op=(AND|OR) expresion_verdad #Verdad 
+    | PAR_IZQ expresion_verdad PAR_DER #Parver
+    | expresion_si #Expver
+    ;
+
 expresion_si
     : expresion_si op=(IGUALDAD|DIFERENTE|MAYOR|MAYOR_IGUAL|MENOR|MENOR_IGUAL) expresion_si #Igu
-    | NUMERO #Intsi
+    | atomo_si #Atomo_dos
+    ;
+atomo
+    :NUMERO #Int
+    | ID #Id
+    ;
+atomo_si
+    :NUMERO #Intsi
     | ID #Idsi
     ;
 PRINCIPAL:'principal';
@@ -72,7 +85,7 @@ MAYOR_IGUAL: '>=';
 MENOR_IGUAL: '<=';
 AND: '&&';
 OR: '||';
-NOT: '!';
+
 COMILLAS:'"';
 
 STRING: PAR_IZQ PALABRAS PAR_DER;

@@ -15,6 +15,7 @@ class EvalVisitor(gramaticaVisitor):
         der=self.visit(ctx.expresion(1))
         
         if ctx.op.type == gramaticaParser.MAS:
+            
             return izq + der
         else:
             return izq - der 
@@ -35,8 +36,7 @@ class EvalVisitor(gramaticaVisitor):
         else:
             return izq ** der 
     #evaua la expresion de lo parentesis
-    def visitParen(self,ctx):
-    
+    def visitPar(self,ctx):
         return self.visit(ctx.expresion())
     #guarda la variable en el diccionario de la memoria
     def visitDeclaracion(self, ctx):
@@ -90,7 +90,6 @@ class EvalVisitor(gramaticaVisitor):
         
         izq = self.visit(ctx.expresion_si(0))
         der = self.visit(ctx.expresion_si(1))
-        
         if ctx.op.type == gramaticaParser.IGUALDAD:
             return izq == der
         elif ctx.op.type == gramaticaParser.DIFERENTE:
@@ -103,10 +102,11 @@ class EvalVisitor(gramaticaVisitor):
             return izq < der
         elif ctx.op.type == gramaticaParser.MENOR_IGUAL:
             return izq <= der
+    
     #se encarga de verificar si entra en el if o sigue en el else
     def visitCondi(self, ctx):
 
-        condicion = self.visit(ctx.condicion().expresion_si())
+        condicion = self.visit(ctx.condicion().expresion_verdad())
         
         if condicion:
             self.visit(ctx.condicion().instrucciones())
@@ -114,20 +114,28 @@ class EvalVisitor(gramaticaVisitor):
             self.visit(ctx.condicion().condicion_si_no().instrucciones())
 
     def visitExpresion_si(self, ctx):
-    
-    
         return self.visitChildren(ctx)
-
+    def visitVerdad(self,ctx):
+        izq = self.visit(ctx.expresion_verdad(0))
+        der = self.visit(ctx.expresion_verdad(1))
+        
+        if ctx.op.type == gramaticaParser.AND:
+            return izq and der
+        elif ctx.op.type == gramaticaParser.OR:
+            return izq or der
+    def visitParver(self,ctx):
+        return self.visit(ctx.expresion_verdad()) 
+        
     def visitIntsi(self,ctx):
         return self.visitInt(ctx)
 
     #---------------------------------------funcion visti para while-------------------------
     def visitWhile(self,ctx):
-        condicion=self.visit(ctx.ciclo_while().expresion_si())
+        condicion=self.visit(ctx.ciclo_while().expresion_verdad())
         if condicion:
             while(condicion):
                 self.visit(ctx.ciclo_while().instrucciones())
-                condicion=self.visit(ctx.ciclo_while().expresion_si())
+                condicion=self.visit(ctx.ciclo_while().expresion_verdad())
     def visitFor(self,ctx):
             # Ejecuta la declaración: var x = 0;
         self.visit(ctx.ciclo_for().declaracion())
