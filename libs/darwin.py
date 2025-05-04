@@ -1,37 +1,68 @@
 class Darwin:
 
     @staticmethod
-    def factorial(n):
-        result = 1
-        for i in range(2, n + 1):
-            result *= i
-        return result
+    def factorial(numero):
+        resultado = 1
+        for i in range(2, numero + 1):
+            resultado *= i
+        return resultado
+
+    @staticmethod
+    def absoluto(numero):
+        return numero if numero >= 0 else -numero
+
+    @staticmethod
+    def redondear(numero):
+        entero = int(numero)
+        return entero if numero - entero < 0.5 else entero + 1
+
+    @staticmethod
+    def convertir_entero(numero):
+        return int(numero)
+
+    @staticmethod
+    def convertir_flotante(numero):
+        return float(numero)
+
+    @staticmethod
+    def raiz_cuadrada(numero):
+        if numero < 0:
+            raise Exception("No se puede calcular raíz cuadrada de un número negativo")
+        # Método de aproximación de Newton
+        aproximacion = numero
+        for _ in range(10):
+            aproximacion = 0.5 * (aproximacion + numero / aproximacion)
+        return aproximacion
+
+    @staticmethod
+    def raiz(numero, indice):
+        if numero < 0 and indice % 2 == 0:
+            raise Exception("No se puede calcular raíz par de un número negativo")
+        # Método de aproximación
+        aproximacion = numero
+        for _ in range(10):
+            aproximacion = ((indice - 1) * aproximacion + numero / (aproximacion ** (indice - 1))) / indice
+        return aproximacion
 
     @classmethod
-    def sin(cls, x):
-        result = 0
-        for i in range(10):  # 10 términos es aceptable para buena precisión
-            sign = (-1) ** i
-            result += sign * (x ** (2 * i + 1)) / cls.factorial(2 * i + 1)
-        return result
-
-    @classmethod
-    def cos(cls, x):
-        result = 0
+    def seno(cls, x):
+        resultado = 0
         for i in range(10):
-            sign = (-1) ** i
-            result += sign * (x ** (2 * i)) / cls.factorial(2 * i)
-        return result
+            signo = (-1) ** i
+            resultado += signo * (x ** (2 * i + 1)) / cls.factorial(2 * i + 1)
+        return resultado
 
     @classmethod
-    def tan(cls, x):
-        cosx = cls.cos(x)
-        if cosx == 0:
+    def coseno(cls, x):
+        resultado = 0
+        for i in range(10):
+            signo = (-1) ** i
+            resultado += signo * (x ** (2 * i)) / cls.factorial(2 * i)
+        return resultado
+
+    @classmethod
+    def tangente(cls, x):
+        coseno_valor = cls.coseno(x)
+        if coseno_valor == 0:
             raise Exception("Tangente indefinida en este valor")
-        return cls.sin(x) / cosx
-
-    @classmethod
-    def ejecutar(cls, nombre, valor):
-        if hasattr(cls, nombre):
-            return getattr(cls, nombre)(valor)
-        raise Exception("Función no encontrada")
+        return cls.seno(x) / coseno_valor

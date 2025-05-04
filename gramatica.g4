@@ -44,6 +44,7 @@ expresion
     : expresion op=(MAS|MENOS) expresion # Suma
     | expresion op=(MUL|DIV) expresion  #Mul
     | expresion op=(MODULO|ELEVACION) expresion #Mod
+    | MENOS expresion #Negativo
     | PUNTOPUNTO ID PUNTO ID PAR_IZQ argumentos? PAR_DER #ExprLlamadaMetodoLibreria
     | PUNTOPUNTO ID PAR_IZQ argumentos? PAR_DER #ExprLlamadaFunc  // ← NUEVA
     | PAR_IZQ expresion PAR_DER #Par

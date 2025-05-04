@@ -95,25 +95,30 @@ class Darwin:
         return a + b
 
     @staticmethod
-    def raiz(a, n=2):
-        if a < 0 and n % 2 == 0:
+    def raiz(numero, indice):
+        if numero < 0 and indice % 2 == 0:
             raise Exception("No se puede calcular raíz par de un número negativo")
-        return a ** (1 / n)
+        # Método de aproximación
+        aproximacion = numero
+        for _ in range(10):
+            aproximacion = ((indice - 1) * aproximacion + numero / (aproximacion ** (indice - 1))) / indice
+        return aproximacion
 
     @classmethod
-    def factorial(cls, n):
-        result = 1
-        for i in range(2, n + 1):
-            result *= i
-        return result
-
-    @classmethod
-    def sin(cls, x):
-        result = 0
+    def seno(cls, x):
+        resultado = 0
         for i in range(10):
-            sign = (-1) ** i
-            result += sign * (x ** (2 * i + 1)) / cls.factorial(2 * i + 1)
-        return result
+            signo = (-1) ** i
+            resultado += signo * (x ** (2 * i + 1)) / cls.factorial(2 * i + 1)
+        return resultado
+
+    @classmethod
+    def coseno(cls, x):
+        resultado = 0
+        for i in range(10):
+            signo = (-1) ** i
+            resultado += signo * (x ** (2 * i)) / cls.factorial(2 * i)
+        return resultado
 ```
 
 

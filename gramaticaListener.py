@@ -305,6 +305,15 @@ class gramaticaListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by gramaticaParser#Negativo.
+    def enterNegativo(self, ctx:gramaticaParser.NegativoContext):
+        pass
+
+    # Exit a parse tree produced by gramaticaParser#Negativo.
+    def exitNegativo(self, ctx:gramaticaParser.NegativoContext):
+        pass
+
+
     # Enter a parse tree produced by gramaticaParser#Int.
     def enterInt(self, ctx:gramaticaParser.IntContext):
         pass

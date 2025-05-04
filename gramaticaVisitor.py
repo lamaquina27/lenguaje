@@ -174,6 +174,11 @@ class gramaticaVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by gramaticaParser#Negativo.
+    def visitNegativo(self, ctx:gramaticaParser.NegativoContext):
+        return self.visitChildren(ctx)
+
+
     # Visit a parse tree produced by gramaticaParser#Int.
     def visitInt(self, ctx:gramaticaParser.IntContext):
         return self.visitChildren(ctx)

@@ -2,14 +2,20 @@ traigase darwin;
 
 principal {
 
-    var s = ..darwin.sin(1);
-    var c = ..darwin.cos(1);
-    var t = ..darwin.tan(1);
+    var resultado_seno = ..darwin.seno(1);
+    var resultado_coseno = ..darwin.coseno(1);
+    var resultado_tangente = ..darwin.tangente(1);
+    
+    mueche(<Seno de 1: > + resultado_seno);
+    mueche(<Coseno de 1: > + resultado_coseno);
+    mueche(<Tangente de 1: > + resultado_tangente);
 
-    mueche(<Seno: > + s);
-    mueche(<Coseno: > + c);
-    mueche(<Tangente: > + t);
+    var raiz_cuadrada = ..darwin.raiz_cuadrada(16);
+    mueche(<Raíz cuadrada de 16: > + raiz_cuadrada);
 
-    var f = ..darwin.factorial(5);
-    mueche(<Factorial: > + f);
+    var raiz_general = ..darwin.raiz(27; 3);
+    mueche(<Raíz cúbica de 27: > + raiz_general);
+
+    var absoluto = ..darwin.absoluto(-99);
+    mueche(<Valor absoluto de -99: > + absoluto);
 }

@@ -10,7 +10,7 @@ else:
 
 def serializedATN():
     return [
-        4,1,42,214,2,0,7,0,2,1,7,1,2,2,7,2,2,3,7,3,2,4,7,4,2,5,7,5,2,6,7,
+        4,1,42,216,2,0,7,0,2,1,7,1,2,2,7,2,2,3,7,3,2,4,7,4,2,5,7,5,2,6,7,
         6,2,7,7,7,2,8,7,8,2,9,7,9,2,10,7,10,2,11,7,11,2,12,7,12,2,13,7,13,
         2,14,7,14,2,15,7,15,2,16,7,16,2,17,7,17,2,18,7,18,1,0,3,0,40,8,0,
         1,0,1,0,1,0,3,0,45,8,0,1,0,1,0,1,1,4,1,50,8,1,11,1,12,1,51,1,2,1,
@@ -22,67 +22,68 @@ def serializedATN():
         12,1,12,1,13,1,13,1,13,1,13,1,13,1,13,1,13,1,13,3,13,135,8,13,1,
         14,1,14,1,14,1,14,1,14,1,15,1,15,1,15,1,15,1,15,1,15,1,15,1,15,1,
         15,1,15,1,15,1,16,1,16,1,16,1,16,1,16,1,16,1,16,1,16,1,17,1,17,1,
-        17,1,17,1,17,1,17,1,17,3,17,168,8,17,1,17,1,17,1,17,1,17,1,17,3,
-        17,175,8,17,1,17,1,17,1,17,1,17,1,17,1,17,1,17,1,17,3,17,185,8,17,
-        1,17,1,17,1,17,1,17,1,17,1,17,1,17,1,17,1,17,5,17,196,8,17,10,17,
-        12,17,199,9,17,1,18,1,18,1,18,3,18,204,8,18,1,18,1,18,1,18,5,18,
-        209,8,18,10,18,12,18,212,9,18,1,18,0,2,34,36,19,0,2,4,6,8,10,12,
-        14,16,18,20,22,24,26,28,30,32,34,36,0,4,1,0,16,17,1,0,18,19,1,0,
-        21,22,1,0,33,38,223,0,39,1,0,0,0,2,49,1,0,0,0,4,53,1,0,0,0,6,58,
-        1,0,0,0,8,71,1,0,0,0,10,73,1,0,0,0,12,82,1,0,0,0,14,91,1,0,0,0,16,
-        99,1,0,0,0,18,105,1,0,0,0,20,109,1,0,0,0,22,115,1,0,0,0,24,121,1,
-        0,0,0,26,126,1,0,0,0,28,136,1,0,0,0,30,141,1,0,0,0,32,152,1,0,0,
-        0,34,184,1,0,0,0,36,203,1,0,0,0,38,40,3,2,1,0,39,38,1,0,0,0,39,40,
-        1,0,0,0,40,41,1,0,0,0,41,42,5,1,0,0,42,44,5,26,0,0,43,45,3,6,3,0,
-        44,43,1,0,0,0,44,45,1,0,0,0,45,46,1,0,0,0,46,47,5,25,0,0,47,1,1,
-        0,0,0,48,50,3,4,2,0,49,48,1,0,0,0,50,51,1,0,0,0,51,49,1,0,0,0,51,
-        52,1,0,0,0,52,3,1,0,0,0,53,54,5,10,0,0,54,55,5,27,0,0,55,56,5,30,
-        0,0,56,5,1,0,0,0,57,59,3,8,4,0,58,57,1,0,0,0,59,60,1,0,0,0,60,58,
-        1,0,0,0,60,61,1,0,0,0,61,7,1,0,0,0,62,72,3,20,10,0,63,72,3,22,11,
-        0,64,72,3,26,13,0,65,72,3,24,12,0,66,72,3,32,16,0,67,72,3,30,15,
-        0,68,72,3,10,5,0,69,72,3,12,6,0,70,72,3,18,9,0,71,62,1,0,0,0,71,
-        63,1,0,0,0,71,64,1,0,0,0,71,65,1,0,0,0,71,66,1,0,0,0,71,67,1,0,0,
-        0,71,68,1,0,0,0,71,69,1,0,0,0,71,70,1,0,0,0,72,9,1,0,0,0,73,74,5,
-        11,0,0,74,75,5,27,0,0,75,77,5,15,0,0,76,78,3,14,7,0,77,76,1,0,0,
-        0,77,78,1,0,0,0,78,79,1,0,0,0,79,80,5,14,0,0,80,81,5,9,0,0,81,11,
-        1,0,0,0,82,83,5,13,0,0,83,84,5,27,0,0,84,86,5,24,0,0,85,87,3,14,
-        7,0,86,85,1,0,0,0,86,87,1,0,0,0,87,88,1,0,0,0,88,89,5,23,0,0,89,
-        90,5,30,0,0,90,13,1,0,0,0,91,96,3,34,17,0,92,93,5,30,0,0,93,95,3,
-        34,17,0,94,92,1,0,0,0,95,98,1,0,0,0,96,94,1,0,0,0,96,97,1,0,0,0,
-        97,15,1,0,0,0,98,96,1,0,0,0,99,101,5,42,0,0,100,102,3,6,3,0,101,
-        100,1,0,0,0,101,102,1,0,0,0,102,103,1,0,0,0,103,104,5,42,0,0,104,
-        17,1,0,0,0,105,106,5,8,0,0,106,107,3,34,17,0,107,108,5,30,0,0,108,
-        19,1,0,0,0,109,110,5,2,0,0,110,111,5,27,0,0,111,112,5,20,0,0,112,
-        113,3,34,17,0,113,114,5,30,0,0,114,21,1,0,0,0,115,116,5,3,0,0,116,
-        117,5,24,0,0,117,118,3,34,17,0,118,119,5,23,0,0,119,120,5,30,0,0,
-        120,23,1,0,0,0,121,122,5,27,0,0,122,123,5,20,0,0,123,124,3,34,17,
-        0,124,125,5,30,0,0,125,25,1,0,0,0,126,127,5,4,0,0,127,128,5,24,0,
-        0,128,129,3,36,18,0,129,130,5,23,0,0,130,131,5,26,0,0,131,132,3,
-        6,3,0,132,134,5,25,0,0,133,135,3,28,14,0,134,133,1,0,0,0,134,135,
-        1,0,0,0,135,27,1,0,0,0,136,137,5,5,0,0,137,138,5,26,0,0,138,139,
-        3,6,3,0,139,140,5,25,0,0,140,29,1,0,0,0,141,142,5,7,0,0,142,143,
-        5,24,0,0,143,144,3,20,10,0,144,145,3,36,18,0,145,146,5,30,0,0,146,
-        147,3,24,12,0,147,148,5,23,0,0,148,149,5,26,0,0,149,150,3,6,3,0,
-        150,151,5,25,0,0,151,31,1,0,0,0,152,153,5,6,0,0,153,154,5,24,0,0,
-        154,155,3,36,18,0,155,156,5,23,0,0,156,157,5,26,0,0,157,158,3,6,
-        3,0,158,159,5,25,0,0,159,33,1,0,0,0,160,161,6,17,-1,0,161,162,5,
-        13,0,0,162,163,5,27,0,0,163,164,5,12,0,0,164,165,5,27,0,0,165,167,
-        5,24,0,0,166,168,3,14,7,0,167,166,1,0,0,0,167,168,1,0,0,0,168,169,
-        1,0,0,0,169,185,5,23,0,0,170,171,5,13,0,0,171,172,5,27,0,0,172,174,
-        5,24,0,0,173,175,3,14,7,0,174,173,1,0,0,0,174,175,1,0,0,0,175,176,
-        1,0,0,0,176,185,5,23,0,0,177,178,5,24,0,0,178,179,3,34,17,0,179,
-        180,5,23,0,0,180,185,1,0,0,0,181,185,5,28,0,0,182,185,5,29,0,0,183,
-        185,5,27,0,0,184,160,1,0,0,0,184,170,1,0,0,0,184,177,1,0,0,0,184,
-        181,1,0,0,0,184,182,1,0,0,0,184,183,1,0,0,0,185,197,1,0,0,0,186,
-        187,10,9,0,0,187,188,7,0,0,0,188,196,3,34,17,10,189,190,10,8,0,0,
-        190,191,7,1,0,0,191,196,3,34,17,9,192,193,10,7,0,0,193,194,7,2,0,
-        0,194,196,3,34,17,8,195,186,1,0,0,0,195,189,1,0,0,0,195,192,1,0,
-        0,0,196,199,1,0,0,0,197,195,1,0,0,0,197,198,1,0,0,0,198,35,1,0,0,
-        0,199,197,1,0,0,0,200,201,6,18,-1,0,201,204,5,28,0,0,202,204,5,27,
-        0,0,203,200,1,0,0,0,203,202,1,0,0,0,204,210,1,0,0,0,205,206,10,3,
-        0,0,206,207,7,3,0,0,207,209,3,36,18,4,208,205,1,0,0,0,209,212,1,
-        0,0,0,210,208,1,0,0,0,210,211,1,0,0,0,211,37,1,0,0,0,212,210,1,0,
-        0,0,17,39,44,51,60,71,77,86,96,101,134,167,174,184,195,197,203,210
+        17,1,17,1,17,1,17,1,17,1,17,1,17,3,17,170,8,17,1,17,1,17,1,17,1,
+        17,1,17,3,17,177,8,17,1,17,1,17,1,17,1,17,1,17,1,17,1,17,1,17,3,
+        17,187,8,17,1,17,1,17,1,17,1,17,1,17,1,17,1,17,1,17,1,17,5,17,198,
+        8,17,10,17,12,17,201,9,17,1,18,1,18,1,18,3,18,206,8,18,1,18,1,18,
+        1,18,5,18,211,8,18,10,18,12,18,214,9,18,1,18,0,2,34,36,19,0,2,4,
+        6,8,10,12,14,16,18,20,22,24,26,28,30,32,34,36,0,4,1,0,16,17,1,0,
+        18,19,1,0,21,22,1,0,33,38,226,0,39,1,0,0,0,2,49,1,0,0,0,4,53,1,0,
+        0,0,6,58,1,0,0,0,8,71,1,0,0,0,10,73,1,0,0,0,12,82,1,0,0,0,14,91,
+        1,0,0,0,16,99,1,0,0,0,18,105,1,0,0,0,20,109,1,0,0,0,22,115,1,0,0,
+        0,24,121,1,0,0,0,26,126,1,0,0,0,28,136,1,0,0,0,30,141,1,0,0,0,32,
+        152,1,0,0,0,34,186,1,0,0,0,36,205,1,0,0,0,38,40,3,2,1,0,39,38,1,
+        0,0,0,39,40,1,0,0,0,40,41,1,0,0,0,41,42,5,1,0,0,42,44,5,26,0,0,43,
+        45,3,6,3,0,44,43,1,0,0,0,44,45,1,0,0,0,45,46,1,0,0,0,46,47,5,25,
+        0,0,47,1,1,0,0,0,48,50,3,4,2,0,49,48,1,0,0,0,50,51,1,0,0,0,51,49,
+        1,0,0,0,51,52,1,0,0,0,52,3,1,0,0,0,53,54,5,10,0,0,54,55,5,27,0,0,
+        55,56,5,30,0,0,56,5,1,0,0,0,57,59,3,8,4,0,58,57,1,0,0,0,59,60,1,
+        0,0,0,60,58,1,0,0,0,60,61,1,0,0,0,61,7,1,0,0,0,62,72,3,20,10,0,63,
+        72,3,22,11,0,64,72,3,26,13,0,65,72,3,24,12,0,66,72,3,32,16,0,67,
+        72,3,30,15,0,68,72,3,10,5,0,69,72,3,12,6,0,70,72,3,18,9,0,71,62,
+        1,0,0,0,71,63,1,0,0,0,71,64,1,0,0,0,71,65,1,0,0,0,71,66,1,0,0,0,
+        71,67,1,0,0,0,71,68,1,0,0,0,71,69,1,0,0,0,71,70,1,0,0,0,72,9,1,0,
+        0,0,73,74,5,11,0,0,74,75,5,27,0,0,75,77,5,15,0,0,76,78,3,14,7,0,
+        77,76,1,0,0,0,77,78,1,0,0,0,78,79,1,0,0,0,79,80,5,14,0,0,80,81,5,
+        9,0,0,81,11,1,0,0,0,82,83,5,13,0,0,83,84,5,27,0,0,84,86,5,24,0,0,
+        85,87,3,14,7,0,86,85,1,0,0,0,86,87,1,0,0,0,87,88,1,0,0,0,88,89,5,
+        23,0,0,89,90,5,30,0,0,90,13,1,0,0,0,91,96,3,34,17,0,92,93,5,30,0,
+        0,93,95,3,34,17,0,94,92,1,0,0,0,95,98,1,0,0,0,96,94,1,0,0,0,96,97,
+        1,0,0,0,97,15,1,0,0,0,98,96,1,0,0,0,99,101,5,42,0,0,100,102,3,6,
+        3,0,101,100,1,0,0,0,101,102,1,0,0,0,102,103,1,0,0,0,103,104,5,42,
+        0,0,104,17,1,0,0,0,105,106,5,8,0,0,106,107,3,34,17,0,107,108,5,30,
+        0,0,108,19,1,0,0,0,109,110,5,2,0,0,110,111,5,27,0,0,111,112,5,20,
+        0,0,112,113,3,34,17,0,113,114,5,30,0,0,114,21,1,0,0,0,115,116,5,
+        3,0,0,116,117,5,24,0,0,117,118,3,34,17,0,118,119,5,23,0,0,119,120,
+        5,30,0,0,120,23,1,0,0,0,121,122,5,27,0,0,122,123,5,20,0,0,123,124,
+        3,34,17,0,124,125,5,30,0,0,125,25,1,0,0,0,126,127,5,4,0,0,127,128,
+        5,24,0,0,128,129,3,36,18,0,129,130,5,23,0,0,130,131,5,26,0,0,131,
+        132,3,6,3,0,132,134,5,25,0,0,133,135,3,28,14,0,134,133,1,0,0,0,134,
+        135,1,0,0,0,135,27,1,0,0,0,136,137,5,5,0,0,137,138,5,26,0,0,138,
+        139,3,6,3,0,139,140,5,25,0,0,140,29,1,0,0,0,141,142,5,7,0,0,142,
+        143,5,24,0,0,143,144,3,20,10,0,144,145,3,36,18,0,145,146,5,30,0,
+        0,146,147,3,24,12,0,147,148,5,23,0,0,148,149,5,26,0,0,149,150,3,
+        6,3,0,150,151,5,25,0,0,151,31,1,0,0,0,152,153,5,6,0,0,153,154,5,
+        24,0,0,154,155,3,36,18,0,155,156,5,23,0,0,156,157,5,26,0,0,157,158,
+        3,6,3,0,158,159,5,25,0,0,159,33,1,0,0,0,160,161,6,17,-1,0,161,162,
+        5,17,0,0,162,187,3,34,17,7,163,164,5,13,0,0,164,165,5,27,0,0,165,
+        166,5,12,0,0,166,167,5,27,0,0,167,169,5,24,0,0,168,170,3,14,7,0,
+        169,168,1,0,0,0,169,170,1,0,0,0,170,171,1,0,0,0,171,187,5,23,0,0,
+        172,173,5,13,0,0,173,174,5,27,0,0,174,176,5,24,0,0,175,177,3,14,
+        7,0,176,175,1,0,0,0,176,177,1,0,0,0,177,178,1,0,0,0,178,187,5,23,
+        0,0,179,180,5,24,0,0,180,181,3,34,17,0,181,182,5,23,0,0,182,187,
+        1,0,0,0,183,187,5,28,0,0,184,187,5,29,0,0,185,187,5,27,0,0,186,160,
+        1,0,0,0,186,163,1,0,0,0,186,172,1,0,0,0,186,179,1,0,0,0,186,183,
+        1,0,0,0,186,184,1,0,0,0,186,185,1,0,0,0,187,199,1,0,0,0,188,189,
+        10,10,0,0,189,190,7,0,0,0,190,198,3,34,17,11,191,192,10,9,0,0,192,
+        193,7,1,0,0,193,198,3,34,17,10,194,195,10,8,0,0,195,196,7,2,0,0,
+        196,198,3,34,17,9,197,188,1,0,0,0,197,191,1,0,0,0,197,194,1,0,0,
+        0,198,201,1,0,0,0,199,197,1,0,0,0,199,200,1,0,0,0,200,35,1,0,0,0,
+        201,199,1,0,0,0,202,203,6,18,-1,0,203,206,5,28,0,0,204,206,5,27,
+        0,0,205,202,1,0,0,0,205,204,1,0,0,0,206,212,1,0,0,0,207,208,10,3,
+        0,0,208,209,7,3,0,0,209,211,3,36,18,4,210,207,1,0,0,0,211,214,1,
+        0,0,0,212,210,1,0,0,0,212,213,1,0,0,0,213,37,1,0,0,0,214,212,1,0,
+        0,0,17,39,44,51,60,71,77,86,96,101,134,169,176,186,197,199,205,212
     ]
 
 class gramaticaParser ( Parser ):
@@ -834,7 +835,7 @@ class gramaticaParser ( Parser ):
             self.state = 77
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            if (((_la) & ~0x3f) == 0 and ((1 << _la) & 956309504) != 0):
+            if (((_la) & ~0x3f) == 0 and ((1 << _la) & 956440576) != 0):
                 self.state = 76
                 self.argumentos()
 
@@ -915,7 +916,7 @@ class gramaticaParser ( Parser ):
             self.state = 86
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            if (((_la) & ~0x3f) == 0 and ((1 << _la) & 956309504) != 0):
+            if (((_la) & ~0x3f) == 0 and ((1 << _la) & 956440576) != 0):
                 self.state = 85
                 self.argumentos()
 
@@ -1918,6 +1919,33 @@ class gramaticaParser ( Parser ):
                 return visitor.visitChildren(self)
 
 
+    class NegativoContext(ExpresionContext):
+
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a gramaticaParser.ExpresionContext
+            super().__init__(parser)
+            self.copyFrom(ctx)
+
+        def MENOS(self):
+            return self.getToken(gramaticaParser.MENOS, 0)
+        def expresion(self):
+            return self.getTypedRuleContext(gramaticaParser.ExpresionContext,0)
+
+
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterNegativo" ):
+                listener.enterNegativo(self)
+
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitNegativo" ):
+                listener.exitNegativo(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitNegativo" ):
+                return visitor.visitNegativo(self)
+            else:
+                return visitor.visitChildren(self)
+
+
     class IntContext(ExpresionContext):
 
         def __init__(self, parser, ctx:ParserRuleContext): # actually a gramaticaParser.ExpresionContext
@@ -1953,97 +1981,107 @@ class gramaticaParser ( Parser ):
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 184
+            self.state = 186
             self._errHandler.sync(self)
             la_ = self._interp.adaptivePredict(self._input,12,self._ctx)
             if la_ == 1:
-                localctx = gramaticaParser.ExprLlamadaMetodoLibreriaContext(self, localctx)
+                localctx = gramaticaParser.NegativoContext(self, localctx)
                 self._ctx = localctx
                 _prevctx = localctx
 
                 self.state = 161
-                self.match(gramaticaParser.PUNTOPUNTO)
+                self.match(gramaticaParser.MENOS)
                 self.state = 162
-                self.match(gramaticaParser.ID)
-                self.state = 163
-                self.match(gramaticaParser.PUNTO)
-                self.state = 164
-                self.match(gramaticaParser.ID)
-                self.state = 165
-                self.match(gramaticaParser.PAR_IZQ)
-                self.state = 167
-                self._errHandler.sync(self)
-                _la = self._input.LA(1)
-                if (((_la) & ~0x3f) == 0 and ((1 << _la) & 956309504) != 0):
-                    self.state = 166
-                    self.argumentos()
-
-
-                self.state = 169
-                self.match(gramaticaParser.PAR_DER)
+                self.expresion(7)
                 pass
 
             elif la_ == 2:
-                localctx = gramaticaParser.ExprLlamadaFuncContext(self, localctx)
+                localctx = gramaticaParser.ExprLlamadaMetodoLibreriaContext(self, localctx)
                 self._ctx = localctx
                 _prevctx = localctx
-                self.state = 170
+                self.state = 163
                 self.match(gramaticaParser.PUNTOPUNTO)
-                self.state = 171
+                self.state = 164
                 self.match(gramaticaParser.ID)
-                self.state = 172
+                self.state = 165
+                self.match(gramaticaParser.PUNTO)
+                self.state = 166
+                self.match(gramaticaParser.ID)
+                self.state = 167
                 self.match(gramaticaParser.PAR_IZQ)
-                self.state = 174
+                self.state = 169
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                if (((_la) & ~0x3f) == 0 and ((1 << _la) & 956309504) != 0):
-                    self.state = 173
+                if (((_la) & ~0x3f) == 0 and ((1 << _la) & 956440576) != 0):
+                    self.state = 168
                     self.argumentos()
 
 
-                self.state = 176
+                self.state = 171
                 self.match(gramaticaParser.PAR_DER)
                 pass
 
             elif la_ == 3:
-                localctx = gramaticaParser.ParContext(self, localctx)
+                localctx = gramaticaParser.ExprLlamadaFuncContext(self, localctx)
                 self._ctx = localctx
                 _prevctx = localctx
-                self.state = 177
+                self.state = 172
+                self.match(gramaticaParser.PUNTOPUNTO)
+                self.state = 173
+                self.match(gramaticaParser.ID)
+                self.state = 174
                 self.match(gramaticaParser.PAR_IZQ)
+                self.state = 176
+                self._errHandler.sync(self)
+                _la = self._input.LA(1)
+                if (((_la) & ~0x3f) == 0 and ((1 << _la) & 956440576) != 0):
+                    self.state = 175
+                    self.argumentos()
+
+
                 self.state = 178
-                self.expresion(0)
-                self.state = 179
                 self.match(gramaticaParser.PAR_DER)
                 pass
 
             elif la_ == 4:
-                localctx = gramaticaParser.IntContext(self, localctx)
+                localctx = gramaticaParser.ParContext(self, localctx)
                 self._ctx = localctx
                 _prevctx = localctx
+                self.state = 179
+                self.match(gramaticaParser.PAR_IZQ)
+                self.state = 180
+                self.expresion(0)
                 self.state = 181
-                self.match(gramaticaParser.NUMERO)
+                self.match(gramaticaParser.PAR_DER)
                 pass
 
             elif la_ == 5:
-                localctx = gramaticaParser.PalabrasContext(self, localctx)
-                self._ctx = localctx
-                _prevctx = localctx
-                self.state = 182
-                self.match(gramaticaParser.PALABRAS)
-                pass
-
-            elif la_ == 6:
-                localctx = gramaticaParser.IdContext(self, localctx)
+                localctx = gramaticaParser.IntContext(self, localctx)
                 self._ctx = localctx
                 _prevctx = localctx
                 self.state = 183
+                self.match(gramaticaParser.NUMERO)
+                pass
+
+            elif la_ == 6:
+                localctx = gramaticaParser.PalabrasContext(self, localctx)
+                self._ctx = localctx
+                _prevctx = localctx
+                self.state = 184
+                self.match(gramaticaParser.PALABRAS)
+                pass
+
+            elif la_ == 7:
+                localctx = gramaticaParser.IdContext(self, localctx)
+                self._ctx = localctx
+                _prevctx = localctx
+                self.state = 185
                 self.match(gramaticaParser.ID)
                 pass
 
 
             self._ctx.stop = self._input.LT(-1)
-            self.state = 197
+            self.state = 199
             self._errHandler.sync(self)
             _alt = self._interp.adaptivePredict(self._input,14,self._ctx)
             while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
@@ -2051,17 +2089,17 @@ class gramaticaParser ( Parser ):
                     if self._parseListeners is not None:
                         self.triggerExitRuleEvent()
                     _prevctx = localctx
-                    self.state = 195
+                    self.state = 197
                     self._errHandler.sync(self)
                     la_ = self._interp.adaptivePredict(self._input,13,self._ctx)
                     if la_ == 1:
                         localctx = gramaticaParser.SumaContext(self, gramaticaParser.ExpresionContext(self, _parentctx, _parentState))
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_expresion)
-                        self.state = 186
-                        if not self.precpred(self._ctx, 9):
+                        self.state = 188
+                        if not self.precpred(self._ctx, 10):
                             from antlr4.error.Errors import FailedPredicateException
-                            raise FailedPredicateException(self, "self.precpred(self._ctx, 9)")
-                        self.state = 187
+                            raise FailedPredicateException(self, "self.precpred(self._ctx, 10)")
+                        self.state = 189
                         localctx.op = self._input.LT(1)
                         _la = self._input.LA(1)
                         if not(_la==16 or _la==17):
@@ -2069,18 +2107,18 @@ class gramaticaParser ( Parser ):
                         else:
                             self._errHandler.reportMatch(self)
                             self.consume()
-                        self.state = 188
-                        self.expresion(10)
+                        self.state = 190
+                        self.expresion(11)
                         pass
 
                     elif la_ == 2:
                         localctx = gramaticaParser.MulContext(self, gramaticaParser.ExpresionContext(self, _parentctx, _parentState))
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_expresion)
-                        self.state = 189
-                        if not self.precpred(self._ctx, 8):
+                        self.state = 191
+                        if not self.precpred(self._ctx, 9):
                             from antlr4.error.Errors import FailedPredicateException
-                            raise FailedPredicateException(self, "self.precpred(self._ctx, 8)")
-                        self.state = 190
+                            raise FailedPredicateException(self, "self.precpred(self._ctx, 9)")
+                        self.state = 192
                         localctx.op = self._input.LT(1)
                         _la = self._input.LA(1)
                         if not(_la==18 or _la==19):
@@ -2088,18 +2126,18 @@ class gramaticaParser ( Parser ):
                         else:
                             self._errHandler.reportMatch(self)
                             self.consume()
-                        self.state = 191
-                        self.expresion(9)
+                        self.state = 193
+                        self.expresion(10)
                         pass
 
                     elif la_ == 3:
                         localctx = gramaticaParser.ModContext(self, gramaticaParser.ExpresionContext(self, _parentctx, _parentState))
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_expresion)
-                        self.state = 192
-                        if not self.precpred(self._ctx, 7):
+                        self.state = 194
+                        if not self.precpred(self._ctx, 8):
                             from antlr4.error.Errors import FailedPredicateException
-                            raise FailedPredicateException(self, "self.precpred(self._ctx, 7)")
-                        self.state = 193
+                            raise FailedPredicateException(self, "self.precpred(self._ctx, 8)")
+                        self.state = 195
                         localctx.op = self._input.LT(1)
                         _la = self._input.LA(1)
                         if not(_la==21 or _la==22):
@@ -2107,12 +2145,12 @@ class gramaticaParser ( Parser ):
                         else:
                             self._errHandler.reportMatch(self)
                             self.consume()
-                        self.state = 194
-                        self.expresion(8)
+                        self.state = 196
+                        self.expresion(9)
                         pass
 
              
-                self.state = 199
+                self.state = 201
                 self._errHandler.sync(self)
                 _alt = self._interp.adaptivePredict(self._input,14,self._ctx)
 
@@ -2241,7 +2279,7 @@ class gramaticaParser ( Parser ):
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 203
+            self.state = 205
             self._errHandler.sync(self)
             token = self._input.LA(1)
             if token in [28]:
@@ -2249,21 +2287,21 @@ class gramaticaParser ( Parser ):
                 self._ctx = localctx
                 _prevctx = localctx
 
-                self.state = 201
+                self.state = 203
                 self.match(gramaticaParser.NUMERO)
                 pass
             elif token in [27]:
                 localctx = gramaticaParser.IdsiContext(self, localctx)
                 self._ctx = localctx
                 _prevctx = localctx
-                self.state = 202
+                self.state = 204
                 self.match(gramaticaParser.ID)
                 pass
             else:
                 raise NoViableAltException(self)
 
             self._ctx.stop = self._input.LT(-1)
-            self.state = 210
+            self.state = 212
             self._errHandler.sync(self)
             _alt = self._interp.adaptivePredict(self._input,16,self._ctx)
             while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
@@ -2273,11 +2311,11 @@ class gramaticaParser ( Parser ):
                     _prevctx = localctx
                     localctx = gramaticaParser.IguContext(self, gramaticaParser.Expresion_siContext(self, _parentctx, _parentState))
                     self.pushNewRecursionContext(localctx, _startState, self.RULE_expresion_si)
-                    self.state = 205
+                    self.state = 207
                     if not self.precpred(self._ctx, 3):
                         from antlr4.error.Errors import FailedPredicateException
                         raise FailedPredicateException(self, "self.precpred(self._ctx, 3)")
-                    self.state = 206
+                    self.state = 208
                     localctx.op = self._input.LT(1)
                     _la = self._input.LA(1)
                     if not((((_la) & ~0x3f) == 0 and ((1 << _la) & 541165879296) != 0)):
@@ -2285,9 +2323,9 @@ class gramaticaParser ( Parser ):
                     else:
                         self._errHandler.reportMatch(self)
                         self.consume()
-                    self.state = 207
+                    self.state = 209
                     self.expresion_si(4) 
-                self.state = 212
+                self.state = 214
                 self._errHandler.sync(self)
                 _alt = self._interp.adaptivePredict(self._input,16,self._ctx)
 
@@ -2314,15 +2352,15 @@ class gramaticaParser ( Parser ):
 
     def expresion_sempred(self, localctx:ExpresionContext, predIndex:int):
             if predIndex == 0:
-                return self.precpred(self._ctx, 9)
+                return self.precpred(self._ctx, 10)
          
 
             if predIndex == 1:
-                return self.precpred(self._ctx, 8)
+                return self.precpred(self._ctx, 9)
          
 
             if predIndex == 2:
-                return self.precpred(self._ctx, 7)
+                return self.precpred(self._ctx, 8)
          
 
     def expresion_si_sempred(self, localctx:Expresion_siContext, predIndex:int):
