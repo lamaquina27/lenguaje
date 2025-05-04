@@ -2,7 +2,7 @@ grammar gramatica;
 
 options { visitor = true; }
 
-programa: importaciones? PRINCIPAL LLAVE_IZQ instrucciones? LLAVE_DER;
+programa: importaciones* instrucciones* PRINCIPAL LLAVE_IZQ instrucciones? LLAVE_DER;
 
 importaciones: importacion+;
 importacion: TRAIGASE ID PUNTO_COMA;
@@ -18,6 +18,7 @@ instruccion
     | ciclo_while #While
     | ciclo_for #For
     | definicion_funcion #DefFunc
+    | PUNTOPUNTO ID PUNTO ID PAR_IZQ argumentos? PAR_DER PUNTO_COMA #ExprLlamadaMetodoLib
     | llamada_funcion #LlamadaFunc
     | retorno #Ret
     ;
@@ -34,10 +35,10 @@ retorno: MANDELE expresion PUNTO_COMA;
 declaracion: VAR ID IGUAL expresion PUNTO_COMA; 
 impresion: MUECHE PAR_IZQ expresion PAR_DER PUNTO_COMA;
 asignacion: ID IGUAL expresion PUNTO_COMA;
-condicion: CHI PAR_IZQ expresion_si PAR_DER LLAVE_IZQ instrucciones LLAVE_DER (condicion_si_no)?;
+condicion: CHI PAR_IZQ expresion_verdad PAR_DER LLAVE_IZQ instrucciones LLAVE_DER (condicion_si_no)?;
 condicion_si_no: SINO LLAVE_IZQ instrucciones LLAVE_DER;
-ciclo_for: PARA PAR_IZQ declaracion  expresion_si PUNTO_COMA asignacion PAR_DER LLAVE_IZQ instrucciones LLAVE_DER;
-ciclo_while:MIENTRAS PAR_IZQ expresion_si PAR_DER LLAVE_IZQ instrucciones LLAVE_DER;
+ciclo_for: PARA PAR_IZQ declaracion  expresion_verdad PUNTO_COMA asignacion PAR_DER LLAVE_IZQ instrucciones LLAVE_DER;
+ciclo_while:MIENTRAS PAR_IZQ expresion_verdad PAR_DER LLAVE_IZQ instrucciones LLAVE_DER;
 
 
 expresion
@@ -52,12 +53,19 @@ expresion
     | PALABRAS #Palabras
     | ID #Id
     ;
+expresion_verdad
+    : expresion_verdad op=(AND|OR) expresion_verdad #Verdad 
+    | PAR_IZQ expresion_verdad PAR_DER #Parver
+    | expresion_si #Expver
+    ;
 expresion_si
     : expresion_si op=(IGUALDAD|DIFERENTE|MAYOR|MAYOR_IGUAL|MENOR|MENOR_IGUAL) expresion_si #Igu
     | NUMERO #Intsi
     | ID #Idsi
     ;
-PRINCIPAL:'principal';
+
+
+PRINCIPAL:'inicio';
 VAR:'var';
 MUECHE:'mueche';
 CHI:'chi';

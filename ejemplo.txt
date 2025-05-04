@@ -1,59 +1,49 @@
+traigase lea;
 traigase darwin;
 
-principal {
+funca melo¿l?"
+    mueche(<Funca melo: > + l);
+"
 
-    var x = 12.6;
-    var y = 5;
-    var t =  <Hola mundo>;
-    mueche(x + t);
-    var c = 5;
+funca loques¿t?"
+    var uuu = t + 3;
+    mandele uuu;
+"
 
-    mientras (c > 0){
-        c = c - 1;
-        mueche(<Kevin Care pipi > + c);
+funca escri¿g; r?"
+    chi (r > 3){
+    ..lea.escribir(<unacosa.txt>; g);
     }
+    mandele(<Si>);
+"
 
-    para (var i = 0; i<10; i = i+1;){
-        mueche(<Vamos > + i);
+funca aut¿m?"
+    chi (m < 3){
+        var k = m + 1;
+        mandele aut(k);
+    }sino{
+    mandele m;
     }
+"
 
-    var f = 3;
+inicio {
+    mueche(2);
+    mueche(..darwin.seno(2));
+
+    var x = ..lea.escribir_ultimo(<probar.txt>; <Texto aquí>);
+    funca prb¿x;y?"
+        mandele (x + y);
+    "
+    ..prb(2;4);
+    ..darwin.seno(4);
+    ..lea.escribir_ultimo(<probar.txt>; < Vamonoooooo  oeoeoeoe>);
+    mueche(<probar txt>);
+    ..lea.leer(<probar.txt>);
+    mueche(<--------------------------------->);
+    ..melo(<Si>);
     
-    chi (f > 5){
-        mueche(<sisa la mayor es> + f);
-    }
-    sino{
-        mueche(<la menor es> + f);
-    }
+    ..escri(<Todo anda una puta belleza>; ..loques(2));
 
-    funca prueba¿x;y;u?"
-        mueche(<Hola > + < > + x + < > + y + < > + u);
-    "
-
-    funca sumar¿w;r?"
-        mandele w + r;
-    "
-    var s = ..sumar(5;26);
-    ..prueba(<Kevin>;s;..sumar(8;7));
-
-    var fa = ..darwin.factorial(5);
-
-    mueche(<seno de 5: > + ..darwin.seno(5) + < factorial 5: > + fa);
-
-    var res = 0;
-
-    funca recur¿n?"
-        var res = n + res;
-        chi (n == 0){
-            mandele res;
-        }
-        sino{
-            ..recur( n - 1);
-        }
-        
-    "
-    mueche(..recur(3));
-
-    mueche(<el 5 \<> + ..recur(8));
-
+    mueche(<terminamos> + <con toda>);
 }
+    

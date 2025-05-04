@@ -76,3 +76,4 @@ class Darwin:
         if coseno_valor == 0:
             raise Exception("Tangente indefinida en este valor")
         return cls.seno(x) / coseno_valor
+

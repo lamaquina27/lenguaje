@@ -64,6 +64,11 @@ class gramaticaVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by gramaticaParser#ExprLlamadaMetodoLib.
+    def visitExprLlamadaMetodoLib(self, ctx:gramaticaParser.ExprLlamadaMetodoLibContext):
+        return self.visitChildren(ctx)
+
+
     # Visit a parse tree produced by gramaticaParser#LlamadaFunc.
     def visitLlamadaFunc(self, ctx:gramaticaParser.LlamadaFuncContext):
         return self.visitChildren(ctx)
@@ -181,6 +186,21 @@ class gramaticaVisitor(ParseTreeVisitor):
 
     # Visit a parse tree produced by gramaticaParser#Int.
     def visitInt(self, ctx:gramaticaParser.IntContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by gramaticaParser#Verdad.
+    def visitVerdad(self, ctx:gramaticaParser.VerdadContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by gramaticaParser#Parver.
+    def visitParver(self, ctx:gramaticaParser.ParverContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by gramaticaParser#Expver.
+    def visitExpver(self, ctx:gramaticaParser.ExpverContext):
         return self.visitChildren(ctx)
 
 

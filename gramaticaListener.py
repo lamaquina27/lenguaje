@@ -107,6 +107,15 @@ class gramaticaListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by gramaticaParser#ExprLlamadaMetodoLib.
+    def enterExprLlamadaMetodoLib(self, ctx:gramaticaParser.ExprLlamadaMetodoLibContext):
+        pass
+
+    # Exit a parse tree produced by gramaticaParser#ExprLlamadaMetodoLib.
+    def exitExprLlamadaMetodoLib(self, ctx:gramaticaParser.ExprLlamadaMetodoLibContext):
+        pass
+
+
     # Enter a parse tree produced by gramaticaParser#LlamadaFunc.
     def enterLlamadaFunc(self, ctx:gramaticaParser.LlamadaFuncContext):
         pass
@@ -320,6 +329,33 @@ class gramaticaListener(ParseTreeListener):
 
     # Exit a parse tree produced by gramaticaParser#Int.
     def exitInt(self, ctx:gramaticaParser.IntContext):
+        pass
+
+
+    # Enter a parse tree produced by gramaticaParser#Verdad.
+    def enterVerdad(self, ctx:gramaticaParser.VerdadContext):
+        pass
+
+    # Exit a parse tree produced by gramaticaParser#Verdad.
+    def exitVerdad(self, ctx:gramaticaParser.VerdadContext):
+        pass
+
+
+    # Enter a parse tree produced by gramaticaParser#Parver.
+    def enterParver(self, ctx:gramaticaParser.ParverContext):
+        pass
+
+    # Exit a parse tree produced by gramaticaParser#Parver.
+    def exitParver(self, ctx:gramaticaParser.ParverContext):
+        pass
+
+
+    # Enter a parse tree produced by gramaticaParser#Expver.
+    def enterExpver(self, ctx:gramaticaParser.ExpverContext):
+        pass
+
+    # Exit a parse tree produced by gramaticaParser#Expver.
+    def exitExpver(self, ctx:gramaticaParser.ExpverContext):
         pass
 
 

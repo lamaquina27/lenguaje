@@ -36,11 +36,12 @@ class EvalVisitor(gramaticaVisitor):
             "parametros": parametros,
             "cuerpo": instrucciones_ctx
         }
-        print(f"Función {nombre} definida con parámetros {parametros}")
+        #print(f"Función {nombre} definida con parámetros {parametros}")
         return None
     
     #-----------Comprueba el llamado de la funcion y ejecuta el parser
     def visitLlamada_funcion(self, ctx):
+        #print("entró en func")
         nombre = ctx.nombre.text
         argumentos = []
         if ctx.argumentos():
@@ -58,11 +59,13 @@ class EvalVisitor(gramaticaVisitor):
             resultado = self.valor_retorno  # <-- CAPTURAR retorno
             self.memory = memoria_anterior
             return resultado
+        # Revisar si la llamada es a una librería     
         # Función en librerías
         for libreria in self.librerias.values():
             if hasattr(libreria, nombre):
                 metodo = getattr(libreria, nombre)
                 return metodo(*argumentos)
+                
         raise Exception(f"Función '{nombre}' no encontrada.")
 
     
@@ -108,6 +111,7 @@ class EvalVisitor(gramaticaVisitor):
 
     #---------Llama la funcion cuando está como expresion o valor
     def visitExprLlamadaFunc(self, ctx):
+        #print("entró en expr")
         nombre = ctx.ID().getText()
         argumentos = []
         if ctx.argumentos():
@@ -136,6 +140,7 @@ class EvalVisitor(gramaticaVisitor):
         valor = self.visit(ctx.retorno().expresion())
         self.valor_retorno = valor
         return valor
+        
 
 
 
@@ -156,6 +161,22 @@ class EvalVisitor(gramaticaVisitor):
 
     #-------------------------Busca los metodos de cada libreria
     def visitExprLlamadaMetodoLibreria(self, ctx):
+        #print("entro en visit")
+        libreria = ctx.ID(0).getText()
+        metodo = ctx.ID(1).getText()
+        argumentos = []
+        if ctx.argumentos():
+            argumentos = [self.visit(e) for e in ctx.argumentos().expresion()]
+        if libreria not in self.librerias:
+            raise Exception(f"Librería '{libreria}' no importada.")
+        libreria_obj = self.librerias[libreria]
+        if not hasattr(libreria_obj, metodo):
+            raise Exception(f"La librería '{libreria}' no tiene el método '{metodo}'.")
+        metodo_obj = getattr(libreria_obj, metodo)
+        return metodo_obj(*argumentos)
+
+    def visitExprLlamadaMetodoLib(self, ctx):
+        #print("entro en visit")
         libreria = ctx.ID(0).getText()
         metodo = ctx.ID(1).getText()
         argumentos = []
@@ -323,7 +344,7 @@ class EvalVisitor(gramaticaVisitor):
             return izq > der
         elif ctx.op.type == gramaticaParser.MAYOR_IGUAL:
             return izq >= der
-        elif ctx.op.type == gramaticaParser.MENOR:
+        elif ctx.op.type == gramaticaParser.MENOR:          
             return izq < der
         elif ctx.op.type == gramaticaParser.MENOR_IGUAL:
             return izq <= der
@@ -331,11 +352,28 @@ class EvalVisitor(gramaticaVisitor):
 
     #----------------------se encarga de verificar si entra en el if o sigue en el else
     def visitCondi(self, ctx):
-        condicion = self.visit(ctx.condicion().expresion_si())
+        condicion = self.visit(ctx.condicion().expresion_verdad())
         if condicion:
             self.visit(ctx.condicion().instrucciones())
         elif ctx.condicion().condicion_si_no() is not None:
             self.visit(ctx.condicion().condicion_si_no().instrucciones())
+
+
+    #---------------------Visita expresiones AND y OR
+    def visitVerdad(self,ctx):
+        izq = self.visit(ctx.expresion_verdad(0))
+        der = self.visit(ctx.expresion_verdad(1))
+        
+        if ctx.op.type == gramaticaParser.AND:
+            return izq and der
+        elif ctx.op.type == gramaticaParser.OR:
+            return izq or der
+        
+        
+    #------------------------------Parentesis en condiciones AND OR
+    def visitParver(self,ctx):
+        return self.visit(ctx.expresion_verdad()) 
+
 
     #------------------------Arbol de condicionales
     def visitExpresion_si(self, ctx):
@@ -349,11 +387,11 @@ class EvalVisitor(gramaticaVisitor):
     
     #-----------------------------------------Whiles
     def visitWhile(self,ctx):
-        condicion=self.visit(ctx.ciclo_while().expresion_si())
+        condicion=self.visit(ctx.ciclo_while().expresion_verdad())
         if condicion:
             while(condicion):
                 self.visit(ctx.ciclo_while().instrucciones())
-                condicion=self.visit(ctx.ciclo_while().expresion_si())
+                condicion=self.visit(ctx.ciclo_while().expresion_verdad())
 
 
     #-----------------------------------------For's
@@ -361,7 +399,7 @@ class EvalVisitor(gramaticaVisitor):
             # Ejecuta la declaración: var x = 0;
         self.visit(ctx.ciclo_for().declaracion())
         # Ejecuta el bucle
-        while self.visit(ctx.ciclo_for().expresion_si()):
+        while self.visit(ctx.ciclo_for().expresion_verdad()):
             # Ejecuta las instrucciones del cuerpo
             self.visit(ctx.ciclo_for().instrucciones())
             # Ejecuta la asignación: x = x + 1;
@@ -371,18 +409,18 @@ class EvalVisitor(gramaticaVisitor):
 
     #-----------------------------Funcion alternativa del while
     def visitCiclo_While(self,ctx):
-        condicion=self.visit(ctx.expresion_si())
+        condicion=self.visit(ctx.expresion_verdad())
         if condicion:
             while(condicion):
                 self.visit(ctx.instrucciones())
-                condicion=self.visit(ctx.expresion_si())
+                condicion=self.visit(ctx.expresion_verdad())
 
     #----------------------------Funcion alternativa del for
     def visitCiclo_For(self,ctx):
             # Ejecuta la declaración: var x = 0;
         self.visit(ctx.declaracion())
         # Ejecuta el bucle
-        while self.visit(ctx.expresion_si()):
+        while self.visit(ctx.expresion_verdad()):
             # Ejecuta las instrucciones del cuerpo
             self.visit(ctx.instrucciones())          
             # Ejecuta la asignación: x = x + 1;
