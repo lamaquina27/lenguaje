@@ -164,6 +164,11 @@ class gramaticaVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by gramaticaParser#ExprLlamadaMetodoLibreria.
+    def visitExprLlamadaMetodoLibreria(self, ctx:gramaticaParser.ExprLlamadaMetodoLibreriaContext):
+        return self.visitChildren(ctx)
+
+
     # Visit a parse tree produced by gramaticaParser#Id.
     def visitId(self, ctx:gramaticaParser.IdContext):
         return self.visitChildren(ctx)

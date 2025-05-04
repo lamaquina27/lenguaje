@@ -287,6 +287,15 @@ class gramaticaListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by gramaticaParser#ExprLlamadaMetodoLibreria.
+    def enterExprLlamadaMetodoLibreria(self, ctx:gramaticaParser.ExprLlamadaMetodoLibreriaContext):
+        pass
+
+    # Exit a parse tree produced by gramaticaParser#ExprLlamadaMetodoLibreria.
+    def exitExprLlamadaMetodoLibreria(self, ctx:gramaticaParser.ExprLlamadaMetodoLibreriaContext):
+        pass
+
+
     # Enter a parse tree produced by gramaticaParser#Id.
     def enterId(self, ctx:gramaticaParser.IdContext):
         pass

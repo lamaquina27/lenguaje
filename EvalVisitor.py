@@ -177,11 +177,39 @@ class EvalVisitor(gramaticaVisitor):
         nombre_lib = ctx.ID().getText()
         try:
             modulo = importlib.import_module(f"libs.{nombre_lib}")
-            clase_libreria = getattr(modulo, "Libreria")
+
+            # Intenta obtener la clase que tenga el mismo nombre que el módulo
+            clase_libreria = getattr(modulo, nombre_lib.capitalize(), None)
+
+            if clase_libreria is None:
+                raise Exception(f"La librería {nombre_lib} no tiene una clase '{nombre_lib.capitalize()}'.")
+
             self.librerias[nombre_lib] = clase_libreria()
             print(f"Librería '{nombre_lib}' importada.")
         except Exception as e:
             print(f"Error al importar la librería {nombre_lib}: {e}")
+
+
+
+    def visitExprLlamadaMetodoLibreria(self, ctx):
+        libreria = ctx.ID(0).getText()
+        metodo = ctx.ID(1).getText()
+
+        argumentos = []
+        if ctx.argumentos():
+            argumentos = [self.visit(e) for e in ctx.argumentos().expresion()]
+
+        if libreria not in self.librerias:
+            raise Exception(f"Librería '{libreria}' no importada.")
+
+        libreria_obj = self.librerias[libreria]
+
+        if not hasattr(libreria_obj, metodo):
+            raise Exception(f"La librería '{libreria}' no tiene el método '{metodo}'.")
+
+        metodo_obj = getattr(libreria_obj, metodo)
+        return metodo_obj(*argumentos)
+
 
 
     

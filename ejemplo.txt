@@ -1,23 +1,15 @@
+traigase darwin;
+
 principal {
 
-    var y = 4;    
-    
-    funca suma¿p;r?
-    "
-    var res = p + r;
-    mueche(res);
-    "
+    var s = ..darwin.sin(1);
+    var c = ..darwin.cos(1);
+    var t = ..darwin.tan(1);
 
-    mueche(<esto entró?>);
+    mueche(<Seno: > + s);
+    mueche(<Coseno: > + c);
+    mueche(<Tangente: > + t);
 
-    funca prueba¿x;y?"
-        var k = x * y;
-        var j = k + x;
-        mueche(j);
-    "
-
-    ..prueba(2;6);
-    ..prueba(2; 5);
-    ..suma(2;3);
-    
+    var f = ..darwin.factorial(5);
+    mueche(<Factorial: > + f);
 }
