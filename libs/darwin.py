@@ -47,17 +47,27 @@ class Darwin:
     @classmethod
     def seno(cls, x):
         resultado = 0
+        x2 = (x*3.141592653589793238462643383279502884197169399375105820974944)/  180
         for i in range(10):
             signo = (-1) ** i
-            resultado += signo * (x ** (2 * i + 1)) / cls.factorial(2 * i + 1)
+            resultado += signo * (x2 ** (2 * i + 1)) / cls.factorial(2 * i + 1)
+        if resultado > 0.999:
+            resultado = 1
+        elif resultado < 0.001:
+            resultado = 0
         return resultado
 
     @classmethod
     def coseno(cls, x):
         resultado = 0
+        #x2 = (x*3.141592653589793238462643383279502884197169399375105820974944)/180
         for i in range(10):
             signo = (-1) ** i
             resultado += signo * (x ** (2 * i)) / cls.factorial(2 * i)
+        if resultado > 0.999:
+            resultado = 1
+        elif resultado < 0.001:
+            resultado = 0
         return resultado
 
     @classmethod

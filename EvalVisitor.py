@@ -175,8 +175,11 @@ class EvalVisitor(gramaticaVisitor):
 
     #----------------------------devuelve enteros
     def visitInt(self,ctx):
-        return int(ctx.NUMERO().getText())
-    
+        if "." in ctx.NUMERO().getText():
+            return float(ctx.NUMERO().getText()) #Fuerza el flotante pa que funcionen    
+        else:
+            return int(ctx.NUMERO().getText()) #Fuerza el flotante pa que funcionen    
+
 
     #----------------------------devuelve cadenas de texto
     def visitPalabras(self, ctx):
@@ -184,6 +187,9 @@ class EvalVisitor(gramaticaVisitor):
         # Remover solo < y >
         if texto.startswith('<') and texto.endswith('>'):
             texto = texto[1:-1]
+        # Des-escapar las flechas y los signos de menor
+        texto = texto.replace("\\>", ">")
+        texto = texto.replace("\\<", "<")
         return texto
     
     #----------------------------Numeros negativos
@@ -278,6 +284,8 @@ class EvalVisitor(gramaticaVisitor):
     #------------------imprime el valor de la expresion mueche()
     def visitImp(self, ctx):
         impre = self.visit(ctx.impresion().expresion())
+        if isinstance(impre, float) and impre.is_integer():
+            impre = int(impre)
         print(impre)
         return impre
     

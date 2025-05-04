@@ -2,20 +2,58 @@ traigase darwin;
 
 principal {
 
-    var resultado_seno = ..darwin.seno(1);
-    var resultado_coseno = ..darwin.coseno(1);
-    var resultado_tangente = ..darwin.tangente(1);
+    var x = 12.6;
+    var y = 5;
+    var t =  <Hola mundo>;
+    mueche(x + t);
+    var c = 5;
+
+    mientras (c > 0){
+        c = c - 1;
+        mueche(<Kevin Care pipi > + c);
+    }
+
+    para (var i = 0; i<10; i = i+1;){
+        mueche(<Vamos > + i);
+    }
+
+    var f = 3;
     
-    mueche(<Seno de 1: > + resultado_seno);
-    mueche(<Coseno de 1: > + resultado_coseno);
-    mueche(<Tangente de 1: > + resultado_tangente);
+    chi (f > 5){
+        mueche(<sisa la mayor es> + f);
+    }
+    sino{
+        mueche(<la menor es> + f);
+    }
 
-    var raiz_cuadrada = ..darwin.raiz_cuadrada(16);
-    mueche(<Raíz cuadrada de 16: > + raiz_cuadrada);
+    funca prueba¿x;y;u?"
+        mueche(<Hola > + < > + x + < > + y + < > + u);
+    "
 
-    var raiz_general = ..darwin.raiz(27; 3);
-    mueche(<Raíz cúbica de 27: > + raiz_general);
+    funca sumar¿w;r?"
+        mandele w + r;
+    "
+    var s = ..sumar(5;26);
+    ..prueba(<Kevin>;s;..sumar(8;7));
 
-    var absoluto = ..darwin.absoluto(-99);
-    mueche(<Valor absoluto de -99: > + absoluto);
+    var fa = ..darwin.factorial(5);
+
+    mueche(<seno de 5: > + ..darwin.seno(5) + < factorial 5: > + fa);
+
+    var res = 0;
+
+    funca recur¿n?"
+        var res = n + res;
+        chi (n == 0){
+            mandele res;
+        }
+        sino{
+            ..recur( n - 1);
+        }
+        
+    "
+    mueche(..recur(3));
+
+    mueche(<el 5 \<> + ..recur(8));
+
 }
