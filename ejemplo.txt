@@ -1,20 +1,14 @@
-traigase regresion;
+traigase red;
 
 inicio {
-    var x = ..regresion.generar_x_ejemplo(500;<sales>);
- 
-    var y = ..regresion.generar_y_ejemplo(x;<sales>);
-    var x_min = ..regresion.obtener_minimos(x);
-    var y_min = ..regresion.obtener_minimo_y(y);
-    var x_max = ..regresion.obtener_maximos(x);
-    var y_max = ..regresion.obtener_maximo_y(y);
-    var x_n = ..regresion.normalizar_x(x;x_min;x_max);
-    var y_n = ..regresion.normalizar_y(y;y_min;y_max);
-
-    var modelo = ..regresion.inicializar_modelo(x_n;y_n);
-    ..regresion.entrenar(modelo);
-
-    var x_p = ..regresion.normalizar_valor([500,4,15,30,2,3];x_min;x_max);
-    var predic = ..regresion.predecir(modelo;x_p);
-    mueche(..regresion.desnormalizar_valor(predic;y_min;y_max));
+    var x = ..red.carga_datos_x(0;2000);
+    var y = ..red.carga_datos_y(0;2000);
+    var y_one = ..red.a_one_hot(y);
+    var x_p = ..red.carga_datos_x(2100;2120);
+    var x_p_16 = ..red.reducir_imagenes_28a16(x_p);
+    var x_16 = ..red.reducir_imagenes_28a16(x);
+    var red_v = ..red.inicializar(x_16;y_one);
+    
+    ..red.entrenar(red_v;60);
+    ..red.predecir(red_v;x_p_16);
 }
