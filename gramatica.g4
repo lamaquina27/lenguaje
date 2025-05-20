@@ -1,8 +1,14 @@
 grammar gramatica;
 
-programa: PRINCIPAL LLAVE_IZQ instrucciones? LLAVE_DER;
+options { visitor = true; }
+
+programa: importaciones* instrucciones* PRINCIPAL LLAVE_IZQ instrucciones? LLAVE_DER;
+
+importaciones: importacion+;
+importacion: TRAIGASE ID PUNTO_COMA;
 
 instrucciones: instruccion+;
+
 
 instruccion
     : declaracion #Dec
@@ -11,15 +17,27 @@ instruccion
     | asignacion #Asi
     | ciclo_while #While
     | ciclo_for #For
+    | definicion_funcion #DefFunc
+    | PUNTOPUNTO ID PUNTO ID PAR_IZQ argumentos? PAR_DER PUNTO_COMA #ExprLlamadaMetodoLib
+    | llamada_funcion #LlamadaFunc
+    | retorno #Ret
     ;
+
+definicion_funcion: FUNCA ID PREG_IZQ argumentos? PREG_DER BLOQUE_FUNCION;
+llamada_funcion: PUNTOPUNTO nombre=ID PAR_IZQ argumentos? PAR_DER PUNTO_COMA;
+argumentos: expresion (PUNTO_COMA expresion)*;
+
+bloque_funcion: COMILLAS instrucciones? COMILLAS;
+
+retorno: MANDELE expresion PUNTO_COMA;
+
 
 declaracion: VAR ID IGUAL expresion PUNTO_COMA; 
 impresion: MUECHE PAR_IZQ expresion PAR_DER PUNTO_COMA;
 asignacion: ID IGUAL expresion PUNTO_COMA;
 condicion: CHI PAR_IZQ expresion_verdad PAR_DER LLAVE_IZQ instrucciones LLAVE_DER (condicion_si_no)?;
 condicion_si_no: SINO LLAVE_IZQ instrucciones LLAVE_DER;
-ciclo_for: PARA PAR_IZQ declaracion  expresion_si PUNTO_COMA asignacion PAR_DER LLAVE_IZQ instrucciones LLAVE_DER;
-
+ciclo_for: PARA PAR_IZQ declaracion  expresion_verdad PUNTO_COMA asignacion PAR_DER LLAVE_IZQ instrucciones LLAVE_DER;
 ciclo_while:MIENTRAS PAR_IZQ expresion_verdad PAR_DER LLAVE_IZQ instrucciones LLAVE_DER;
 
 
@@ -27,37 +45,47 @@ expresion
     : expresion op=(MAS|MENOS) expresion # Suma
     | expresion op=(MUL|DIV) expresion  #Mul
     | expresion op=(MODULO|ELEVACION) expresion #Mod
+    | COR_IZQ (expresion (',' expresion)*)? COR_DER #Lista
+    | MENOS expresion #Negativo
+    | PUNTOPUNTO ID PUNTO ID PAR_IZQ argumentos? PAR_DER #ExprLlamadaMetodoLibreria
+    | PUNTOPUNTO ID PAR_IZQ argumentos? PAR_DER #ExprLlamadaFunc  // ← NUEVA
     | PAR_IZQ expresion PAR_DER #Par
+    | NUMERO #Int
     | PALABRAS #Palabras
-    | atomo #Atomo_uno
+    | ID #Id
     ;
 expresion_verdad
     : expresion_verdad op=(AND|OR) expresion_verdad #Verdad 
     | PAR_IZQ expresion_verdad PAR_DER #Parver
     | expresion_si #Expver
     ;
-
 expresion_si
     : expresion_si op=(IGUALDAD|DIFERENTE|MAYOR|MAYOR_IGUAL|MENOR|MENOR_IGUAL) expresion_si #Igu
-    | atomo_si #Atomo_dos
-    ;
-atomo
-    :NUMERO #Int
-    | ID #Id
-    ;
-atomo_si
-    :NUMERO #Intsi
+    | NUMERO #Intsi
     | ID #Idsi
     ;
-PRINCIPAL:'principal';
+
+
+PRINCIPAL:'inicio';
 VAR:'var';
 MUECHE:'mueche';
 CHI:'chi';
 SINO:'sino';
 MIENTRAS:'mientras';
 PARA:'para';
+MANDELE: 'mandele';
 
 
+
+BLOQUE_FUNCION: '"' ( . | '\r' | '\n' )*? '"';
+
+
+TRAIGASE: 'traigase';
+FUNCA: 'funca';
+PUNTO: '.';
+PUNTOPUNTO : '..';
+PREG_DER:'?';
+PREG_IZQ:'¿';
 
 
 MAS : '+';
@@ -71,11 +99,15 @@ PAR_DER:')';
 PAR_IZQ:'(';
 LLAVE_DER:'}';
 LLAVE_IZQ:'{';
-ID:[a-zA-Z_][A-Za-z0-9]*; 
-NUMERO:[0-9]+;
-PALABRAS:MENOR [a-zA-Z]+ MENOR;
+COR_DER:']';
+COR_IZQ:'[';
+ID: [a-zA-Z_][a-zA-Z0-9_]*;
+NUMERO: [0-9]+ ('.' [0-9]+)?;
+PALABRAS : '<' ( '\\>' | '\\<' | ~[<>] )* '>';
 PUNTO_COMA:';';
-WS:[ \t\n\r]-> skip;
+NL: ('\n'|'\r')+ -> skip;
+WS: [ \t]+ -> skip;
+
 
 IGUALDAD: '==';
 DIFERENTE: '!=';
@@ -85,7 +117,5 @@ MAYOR_IGUAL: '>=';
 MENOR_IGUAL: '<=';
 AND: '&&';
 OR: '||';
-
-COMILLAS:'"';
-
-STRING: PAR_IZQ PALABRAS PAR_DER;
+NOT: '!';
+COMILLAS: '"' -> channel(HIDDEN);

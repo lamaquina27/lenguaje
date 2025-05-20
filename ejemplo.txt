@@ -1,9 +1,20 @@
-principal {
-    var y = 4;   
-    var x = 3;    
-    mientras(3==x && y> 0){
-        
-        mueche(y);
-        y = y-1;
-    }
+traigase regresion;
+
+inicio {
+    var x = ..regresion.generar_x_ejemplo(500;<sales>);
+ 
+    var y = ..regresion.generar_y_ejemplo(x;<sales>);
+    var x_min = ..regresion.obtener_minimos(x);
+    var y_min = ..regresion.obtener_minimo_y(y);
+    var x_max = ..regresion.obtener_maximos(x);
+    var y_max = ..regresion.obtener_maximo_y(y);
+    var x_n = ..regresion.normalizar_x(x;x_min;x_max);
+    var y_n = ..regresion.normalizar_y(y;y_min;y_max);
+
+    var modelo = ..regresion.inicializar_modelo(x_n;y_n);
+    ..regresion.entrenar(modelo);
+
+    var x_p = ..regresion.normalizar_valor([500,4,15,30,2,3];x_min;x_max);
+    var predic = ..regresion.predecir(modelo;x_p);
+    mueche(..regresion.desnormalizar_valor(predic;y_min;y_max));
 }

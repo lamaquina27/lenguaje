@@ -1,25 +1,241 @@
 from gramaticaParser import gramaticaParser
 from gramaticaVisitor import gramaticaVisitor
+from gramaticaLexer import gramaticaLexer
+from antlr4 import InputStream
+from antlr4 import CommonTokenStream
+import importlib
 
-
+#--------------------------------------------------------------Clase Principal---------------------------
 class EvalVisitor(gramaticaVisitor):
     def __init__(self):
         super().__init__()
         self.memory = {}
-    # devuelve el entero
+        self.librerias = {}  # Nuevo diccionario para las librerías importadas
+        self.funciones = {}
+
+
+    #---------------------------------------------------------funciones------------------
+    #---------------Parser- cambia text a instruccion
+    def parsear_instrucciones(self, bloque_texto):
+        input_stream = InputStream(bloque_texto.strip('"'))  # Quitar comillas del bloque
+        lexer = gramaticaLexer(input_stream)
+        token_stream = CommonTokenStream(lexer)
+        parser = gramaticaParser(token_stream)
+        return parser.instrucciones()
+
+    #--------------Comprueba la definicion de las fubciones
+    def visitDefFunc(self, ctx):
+        definicion = ctx.getChild(0)  # Esto es definicion_funcionContext
+        nombre = definicion.ID().getText() 
+        parametros = []
+        if definicion.argumentos():
+            parametros = [p.getText() for p in definicion.argumentos().expresion()]
+        bloque_texto = definicion.BLOQUE_FUNCION().getText()
+        instrucciones_ctx = self.parsear_instrucciones(bloque_texto)
+        self.funciones[nombre] = {
+            "parametros": parametros,
+            "cuerpo": instrucciones_ctx
+        }
+        #print(f"Función {nombre} definida con parámetros {parametros}")
+        return None
+    
+    #-----------Comprueba el llamado de la funcion y ejecuta el parser
+    def visitLlamada_funcion(self, ctx):
+        #print("entró en func")
+        nombre = ctx.nombre.text
+        argumentos = []
+        if ctx.argumentos():
+            argumentos = [self.visit(e) for e in ctx.argumentos().expresion()]
+        # Función definida internamente
+        if nombre in self.funciones:
+            funcion = self.funciones[nombre]
+            if len(funcion["parametros"]) != len(argumentos):
+                raise Exception("Número incorrecto de argumentos.")
+            memoria_anterior = self.memory.copy()
+            self.valor_retorno = None  # <-- LIMPIAR retorno previo
+            for param, arg in zip(funcion["parametros"], argumentos):
+                self.memory[param] = arg
+            self.visit(funcion["cuerpo"])
+            resultado = self.valor_retorno  # <-- CAPTURAR retorno
+            self.memory = memoria_anterior
+            return resultado
+        # Revisar si la llamada es a una librería     
+        # Función en librerías
+        for libreria in self.librerias.values():
+            if hasattr(libreria, nombre):
+                metodo = getattr(libreria, nombre)
+                return metodo(*argumentos)
+                
+        raise Exception(f"Función '{nombre}' no encontrada.")
+
+    
+    """def visitLlamadaFunc(self, ctx):
+        nombre = ctx.getChild(1).getText()
+        if nombre is None:
+            raise Exception("Error: llamada de función sin nombre.")
+
+        argumentos = []
+
+        if ctx.argumentos():
+            argumentos = [self.visit(e) for e in ctx.argumentos().expresion()]
+
+        # Verificar si es función interna
+        if nombre in self.funciones:
+            funcion = self.funciones[nombre]
+
+            if len(funcion["parametros"]) != len(argumentos):
+                raise Exception("Número incorrecto de argumentos.")
+
+            # Guardar memoria temporal
+            memoria_anterior = self.memory.copy()
+
+            for param, arg in zip(funcion["parametros"], argumentos):
+                self.memory[param] = arg
+
+            # Ejecutar cuerpo
+            self.visit(funcion["cuerpo"])
+
+            # Restaurar memoria
+            self.memory = memoria_anterior
+
+            return None
+
+        # Verificar si es librería
+        for libreria in self.librerias.values():
+            if hasattr(libreria, nombre):
+                metodo = getattr(libreria, nombre)
+                return metodo(*argumentos)
+
+        raise Exception(f"Función '{nombre}' no encontrada.")
+"""
+
+    #---------Llama la funcion cuando está como expresion o valor
+    def visitExprLlamadaFunc(self, ctx):
+        #print("entró en expr")
+        nombre = ctx.ID().getText()
+        argumentos = []
+        if ctx.argumentos():
+            argumentos = [self.visit(e) for e in ctx.argumentos().expresion()]
+        # Función interna
+        if nombre in self.funciones:
+            funcion = self.funciones[nombre]
+            if len(funcion["parametros"]) != len(argumentos):
+                raise Exception("Número incorrecto de argumentos.")
+            memoria_anterior = self.memory.copy()
+            self.valor_retorno = None
+            for param, arg in zip(funcion["parametros"], argumentos):
+                self.memory[param] = arg
+            self.visit(funcion["cuerpo"])
+            self.memory = memoria_anterior
+            return self.valor_retorno
+        # Función de librería
+        for libreria in self.librerias.values():
+            if hasattr(libreria, nombre):
+                metodo = getattr(libreria, nombre)
+                return metodo(*argumentos)
+        raise Exception(f"Función '{nombre}' no encontrada.")
+    
+    #----------------Permite que las funciones retornen un valor
+    def visitRet(self, ctx):
+        valor = self.visit(ctx.retorno().expresion())
+        self.valor_retorno = valor
+        return valor
+        
+
+
+
+    #----------------------------------------------------------------Libs----------------------------
+    def visitImportacion(self, ctx):
+        nombre_lib = ctx.ID().getText()
+        try:
+            modulo = importlib.import_module(f"libs.{nombre_lib}")
+            # Intenta obtener la clase que tenga el mismo nombre que el módulo
+            clase_libreria = getattr(modulo, nombre_lib.capitalize(), None)
+            if clase_libreria is None:
+                raise Exception(f"La librería {nombre_lib} no tiene una clase '{nombre_lib.capitalize()}'.")
+            self.librerias[nombre_lib] = clase_libreria()
+            print(f"Librería '{nombre_lib}' importada.")
+        except Exception as e:
+            print(f"Error al importar la librería {nombre_lib}: {e}")
+
+
+    #-------------------------Busca los metodos de cada libreria
+    def visitExprLlamadaMetodoLibreria(self, ctx):
+        #print("entro en visit")
+        libreria = ctx.ID(0).getText()
+        metodo = ctx.ID(1).getText()
+        argumentos = []
+        if ctx.argumentos():
+            argumentos = [self.visit(e) for e in ctx.argumentos().expresion()]
+        if libreria not in self.librerias:
+            raise Exception(f"Librería '{libreria}' no importada.")
+        libreria_obj = self.librerias[libreria]
+        if not hasattr(libreria_obj, metodo):
+            raise Exception(f"La librería '{libreria}' no tiene el método '{metodo}'.")
+        metodo_obj = getattr(libreria_obj, metodo)
+        return metodo_obj(*argumentos)
+
+    def visitExprLlamadaMetodoLib(self, ctx):
+        #print("entro en visit")
+        libreria = ctx.ID(0).getText()
+        metodo = ctx.ID(1).getText()
+        argumentos = []
+        if ctx.argumentos():
+            argumentos = [self.visit(e) for e in ctx.argumentos().expresion()]
+        if libreria not in self.librerias:
+            raise Exception(f"Librería '{libreria}' no importada.")
+        libreria_obj = self.librerias[libreria]
+        if not hasattr(libreria_obj, metodo):
+            raise Exception(f"La librería '{libreria}' no tiene el método '{metodo}'.")
+        metodo_obj = getattr(libreria_obj, metodo)
+        return metodo_obj(*argumentos)
+
+
+
+    #-------------------------------------------------------Tipos de datos----------------------
+
+    #----------------------------devuelve enteros
     def visitInt(self,ctx):
-        return int(ctx.NUMERO().getText())
-    #devuelve la suma o la resta de los numeros 
+        if "." in ctx.NUMERO().getText():
+            return float(ctx.NUMERO().getText()) #Fuerza el flotante pa que funcionen    
+        else:
+            return int(ctx.NUMERO().getText()) #Fuerza el flotante pa que funcionen    
+
+
+    #----------------------------devuelve cadenas de texto
+    def visitPalabras(self, ctx):
+        texto = ctx.getText()  # Ejemplo: <Hola>
+        # Remover solo < y >
+        if texto.startswith('<') and texto.endswith('>'):
+            texto = texto[1:-1]
+        # Des-escapar las flechas y los signos de menor
+        texto = texto.replace("\\>", ">")
+        texto = texto.replace("\\<", "<")
+        return texto
+    
+    #----------------------------Numeros negativos
+    def visitNegativo(self, ctx):
+        valor = self.visit(ctx.expresion())
+        return -valor
+
+    
+
+
+    #-----------------------------------------------------Operaciones basicas-------------------
+
+    #-------------------------devuelve la suma o la resta de los numeros 
     def visitSuma(self,ctx):
         izq=self.visit(ctx.expresion(0))
         der=self.visit(ctx.expresion(1))
-        
         if ctx.op.type == gramaticaParser.MAS:
-            
-            return izq + der
+            if isinstance(izq, str) or isinstance (der, str):
+                return str(izq) + str(der)
+            else:
+                return izq + der
         else:
             return izq - der 
-    #devuelve la multiplicacion o la division de los numeros 
+
+    #----------------------devuelve la multiplicacion o la division de los numeros 
     def visitMul(self,ctx):
         izq=self.visit(ctx.expresion(0))
         der=self.visit(ctx.expresion(1))
@@ -27,7 +243,9 @@ class EvalVisitor(gramaticaVisitor):
             return izq * der
         else:
             return izq / der 
-    #devuelve ell modulo o la potencia de los numeros 
+        
+
+    #---------------------devuelve ell modulo o la potencia de los numeros 
     def visitMod(self,ctx):
         izq=self.visit(ctx.expresion(0))
         der=self.visit(ctx.expresion(1))
@@ -35,59 +253,91 @@ class EvalVisitor(gramaticaVisitor):
             return izq % der
         else:
             return izq ** der 
-    #evaua la expresion de lo parentesis
+        
+
+
+    #---------------------------------------------------------------Gramatica o sintaxis----------------------
+
+    #----------------------------evaua la expresion de lo parentesis
     def visitPar(self,ctx):
         return self.visit(ctx.expresion())
-    #guarda la variable en el diccionario de la memoria
+
+    #-------------------guarda la variable en el diccionario de la memoria
     def visitDeclaracion(self, ctx):
         variable = ctx.ID().getText()
         valor = self.visit(ctx.expresion())
+        
         self.memory[variable] = valor
-        
         return self.memory[variable]
+    def visitLista(self, ctx):
+        elementos = [self.visit(e) for e in ctx.expresion()]
+        return elementos
 
-    def visitDec(self, ctx):
-        
+    #---------------------------------devuelve las declaraciones
+    def visitDec(self, ctx):  
         return self.visit(ctx.declaracion())  # Esto ahora llama correctamente a visitDeclaracion
 
-    #obtiene el valor de la variable almacenada
+    #----------------------------------obtiene el valor de la variable almacenada
     def visitId(self, ctx):
         nombre = ctx.ID().getText()
-        
-        return self.memory.get(nombre)
+        #cambios soporte libs
+         # Si es una variable ya almacenada
+        if nombre in self.memory:
+            return self.memory[nombre]
+        # Si no es variable, buscar en librerías importadas
+        for libreria in self.librerias.values():
+            if hasattr(libreria, nombre):
+                metodo = getattr(libreria, nombre)
+                return metodo()
+        # Si no se encontró
+        raise Exception(f"Variable o función '{nombre}' no definida.")
+        #return self.memory.get(nombre)
+
+
+    #------------------------------------------------------------Flujo de ejecucion-----------------
+    
+    #--------------------------------Lee funcion principal
     def visitPrograma(self, ctx):
         return self.visitChildren(ctx)
 
+    #----------------------------Lee serie de instrucciones
     def visitInstrucciones(self, ctx):
-        return self.visitChildren(ctx)
-    #imprime el valor de la expresion
+        for instr in ctx.instruccion():
+            self.visit(instr)
+    
+
+    #------------------imprime el valor de la expresion mueche()
     def visitImp(self, ctx):
         impre = self.visit(ctx.impresion().expresion())
+        if isinstance(impre, float) and impre.is_integer():
+            impre = int(impre)
         print(impre)
         return impre
+    
+    #-----------------------Almacena valor de variables
     def visitAsignacion(self,ctx):
         nombre = ctx.ID().getText()
-        
         if self.memory[nombre] or self.memory[nombre]==0 :
             valor = self.visit(ctx.expresion())
-            
             self.memory[nombre] = valor
-            
             return valor
         else:
             print("por favor declara la variable antes de")
             return 
+        
+    #-------------------Modifica en memoria un valor de variable existente
     def visitAsi(self,ctx):
         return self.visit(ctx.asignacion())
-    #------------------------------------funciones de expresion_si-----------------------------
-    #obtiene el valor de la variable almacenada
+
+
+    #-------------------------------------------------------funciones de expresion_si---------------------
+    
+    #----------------------obtiene el valor de la variable almacenada
     def visitIdsi(self, ctx):
-        
         return self.visitId(ctx)
     
-    #evalua si la expresion es == o !=
+    #----------------------evalua si la expresion es == o !=
     def visitIgu(self, ctx):
-        
         izq = self.visit(ctx.expresion_si(0))
         der = self.visit(ctx.expresion_si(1))
         if ctx.op.type == gramaticaParser.IGUALDAD:
@@ -98,23 +348,22 @@ class EvalVisitor(gramaticaVisitor):
             return izq > der
         elif ctx.op.type == gramaticaParser.MAYOR_IGUAL:
             return izq >= der
-        elif ctx.op.type == gramaticaParser.MENOR:
+        elif ctx.op.type == gramaticaParser.MENOR:          
             return izq < der
         elif ctx.op.type == gramaticaParser.MENOR_IGUAL:
             return izq <= der
-    
-    #se encarga de verificar si entra en el if o sigue en el else
-    def visitCondi(self, ctx):
-
-        condicion = self.visit(ctx.condicion().expresion_verdad())
         
+
+    #----------------------se encarga de verificar si entra en el if o sigue en el else
+    def visitCondi(self, ctx):
+        condicion = self.visit(ctx.condicion().expresion_verdad())
         if condicion:
             self.visit(ctx.condicion().instrucciones())
         elif ctx.condicion().condicion_si_no() is not None:
             self.visit(ctx.condicion().condicion_si_no().instrucciones())
 
-    def visitExpresion_si(self, ctx):
-        return self.visitChildren(ctx)
+
+    #---------------------Visita expresiones AND y OR
     def visitVerdad(self,ctx):
         izq = self.visit(ctx.expresion_verdad(0))
         der = self.visit(ctx.expresion_verdad(1))
@@ -123,29 +372,62 @@ class EvalVisitor(gramaticaVisitor):
             return izq and der
         elif ctx.op.type == gramaticaParser.OR:
             return izq or der
+        
+        
+    #------------------------------Parentesis en condiciones AND OR
     def visitParver(self,ctx):
         return self.visit(ctx.expresion_verdad()) 
-        
+
+
+    #------------------------Arbol de condicionales
+    def visitExpresion_si(self, ctx):
+        return self.visitChildren(ctx)
+
+    #------------------------Condicionales numericos
     def visitIntsi(self,ctx):
         return self.visitInt(ctx)
 
-    #---------------------------------------funcion visti para while-------------------------
+    #--------------------------------------------------------------------------Bucles--------------
+    
+    #-----------------------------------------Whiles
     def visitWhile(self,ctx):
         condicion=self.visit(ctx.ciclo_while().expresion_verdad())
         if condicion:
             while(condicion):
                 self.visit(ctx.ciclo_while().instrucciones())
                 condicion=self.visit(ctx.ciclo_while().expresion_verdad())
+
+
+    #-----------------------------------------For's
     def visitFor(self,ctx):
             # Ejecuta la declaración: var x = 0;
         self.visit(ctx.ciclo_for().declaracion())
-
         # Ejecuta el bucle
-        while self.visit(ctx.ciclo_for().expresion_si()):
+        while self.visit(ctx.ciclo_for().expresion_verdad()):
             # Ejecuta las instrucciones del cuerpo
             self.visit(ctx.ciclo_for().instrucciones())
-            
             # Ejecuta la asignación: x = x + 1;
             self.visit(ctx.ciclo_for().asignacion())
+
+#-------------------------Cambio necesario para funcion basada en ejecución no lineal (Beta)
+
+    #-----------------------------Funcion alternativa del while
+    def visitCiclo_While(self,ctx):
+        condicion=self.visit(ctx.expresion_verdad())
+        if condicion:
+            while(condicion):
+                self.visit(ctx.instrucciones())
+                condicion=self.visit(ctx.expresion_verdad())
+
+    #----------------------------Funcion alternativa del for
+    def visitCiclo_For(self,ctx):
+            # Ejecuta la declaración: var x = 0;
+        self.visit(ctx.declaracion())
+        # Ejecuta el bucle
+        while self.visit(ctx.expresion_verdad()):
+            # Ejecuta las instrucciones del cuerpo
+            self.visit(ctx.instrucciones())          
+            # Ejecuta la asignación: x = x + 1;
+            self.visit(ctx.asignacion())
      
        

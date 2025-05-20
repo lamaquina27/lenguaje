@@ -1,0 +1,8 @@
+camiosssss
+
+
+grafica.py
+ya acepta todo tipo de valor
+
+darin.py
+ya bota los valores como son
