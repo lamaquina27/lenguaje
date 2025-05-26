@@ -115,14 +115,14 @@ class Frasser:
 
     @staticmethod
     def inversa_2x2(m):
-        det = Newton.determinante_2x2(m)
+        det = Frasser.determinante_2x2(m)
         if det == 0:
             raise Exception("La matriz no tiene inversa (determinante 0).")
         return [[m[1][1]/det, -m[0][1]/det], [-m[1][0]/det, m[0][0]/det]]
 
     @staticmethod
     def es_simetrica(m):
-        if not Newton.es_cuadrada(m):
+        if not Frasser.es_cuadrada(m):
             return False
         for i in range(len(m)):
             for j in range(len(m[0])):
