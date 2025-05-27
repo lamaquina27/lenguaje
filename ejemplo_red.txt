@@ -1,0 +1,14 @@
+traigase red;
+
+inicio {
+    var x = ..red.carga_datos_x(0;500);
+    var y = ..red.carga_datos_y(0;500);
+    var y_one = ..red.a_one_hot(y);
+    var x_p = ..red.carga_datos_x(179;199);
+    var x_p_16 = ..red.reducir_imagenes_28a16(x_p);
+    var x_16 = ..red.reducir_imagenes_28a16(x);
+    var red_v = ..red.inicializar(x_16;y_one);
+    
+    ..red.entrenar(red_v;100);
+    ..red.predecir(red_v;x_p_16);
+}

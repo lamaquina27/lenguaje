@@ -1,0 +1,11 @@
+traigase grafica;
+traigase darwin;
+inicio {
+var x = [1,2,3,4,5];
+var y = [1,2,3,4,5];
+var sy = [0,90,180,270,360];
+var s = [..darwin.seno(0),..darwin.seno(90),..darwin.seno(180),..darwin.seno(270),..darwin.seno(360)];
+..grafica.grafica_barras(x;y;<red>);
+..grafica.grafica_lineal(sy;s;80;20;<blue>);
+..grafica.grafica_pastel(x;y);
+}

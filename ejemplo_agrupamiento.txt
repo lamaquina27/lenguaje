@@ -1,0 +1,6 @@
+traigase agrupamiento;
+
+inicio {
+    var datos = [[1, 2], [1, 8], [5, 8], [8, 8],[1, 0.6], [9, 11], [8, 2], [10, 2], [9, 3]];
+    ..agrupamiento.ejecutar_agrupamiento(datos;2);   
+}

@@ -1,0 +1,23 @@
+
+funca melo¿l?"
+    mueche(<Funca melo: > + l);
+"
+
+inicio {
+    mueche(2);
+    var x = 0;
+    mientras(x<3){
+        mueche(x);
+        x=x+1;
+    }
+    mueche(<hola> + x);
+    chi(x==3){
+        ..melo(x);
+    }
+    para(var i = 0;i<3;i=i+1;){
+        mueche(i*2);
+    }
+    
+    mueche(<terminamos> + <con toda>);
+    
+}

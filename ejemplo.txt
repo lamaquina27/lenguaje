@@ -1,14 +1,11 @@
+traigase grafica;
+traigase darwin;
 traigase red;
-
 inicio {
-    var x = ..red.carga_datos_x(0;2000);
-    var y = ..red.carga_datos_y(0;2000);
-    var y_one = ..red.a_one_hot(y);
-    var x_p = ..red.carga_datos_x(2100;2120);
-    var x_p_16 = ..red.reducir_imagenes_28a16(x_p);
-    var x_16 = ..red.reducir_imagenes_28a16(x);
-    var red_v = ..red.inicializar(x_16;y_one);
-    
-    ..red.entrenar(red_v;60);
-    ..red.predecir(red_v;x_p_16);
+ var x = [[0,0],[0,1],[1,0],[1,1]];
+ var y = [[0],[0],[0],[1]];
+  var red_v= ..red.inicializar_p(x;y);
+  ..red.entrenar_p(red_v);
+  var x_p = [1,0]; 
+  ..red.predecir_p(red_v;x_p);
 }

@@ -1,0 +1,9 @@
+traigase lea;
+
+inicio {
+    ..lea.escribir(<unacosa.txt>;<hola buenos dias>);
+    ..lea.leer(<unacosa.txt>);
+    ..lea.escribir_ultimo(<unacosa.txt>;< hola buenas noches>);
+    ..lea.leer(<unacosa.txt>);   
+
+}

@@ -18,6 +18,10 @@ class Frasser:
     @staticmethod
     def concatenar_listas(a, b):
         return a + b
+    
+    @staticmethod
+    def agg(a, b):
+        return a.append(b) 
 
     @staticmethod
     def invertir_lista(lista):

@@ -1,0 +1,6 @@
+traigase darwin;
+
+inicio {
+    var r = ..darwin.raiz_cuadrada(16);
+    mueche(r);
+}

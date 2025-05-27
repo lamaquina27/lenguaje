@@ -80,12 +80,12 @@ class Red:
         return -sum(objetivo * np.log(max(prediccion, epsilon)) for prediccion, objetivo in zip(predicciones, objetivos))
 
     @classmethod
-    def inicializar(cls, entradas, salidas, ocultas=64, tasa=0.01):
+    def inicializar(cls, entradas, salidas, ocultas=64, tasa=0.95):
         red = {
             "x": entradas,
             "y": salidas,
             "tasa": tasa,
-            "batch_size": 32,  # Tamaño del mini-batch
+            "batch_size": 1,  # Tamaño del mini-batch
             "pesos1": [[cls.my_uniform(-1, 1) for _ in range(len(entradas[0]))] for _ in range(ocultas)],
             "umbral1": [cls.my_uniform(-1, 1) for _ in range(ocultas)],
             "pesos2": [[cls.my_uniform(-1, 1) for _ in range(ocultas)] for _ in range(len(salidas[0]))],
@@ -100,6 +100,7 @@ class Red:
         for j in range(len(red["pesos1"])):
             suma = sum(entrada[i] * red["pesos1"][j][i] for i in range(len(entrada)))
             suma += red["umbral1"][j]
+            
             salida_oculta.append(cls.sigmoide(suma))
         
         # Capa de salida (antes del softmax)
@@ -108,15 +109,17 @@ class Red:
             suma = sum(salida_oculta[i] * red["pesos2"][k][i] for i in range(len(salida_oculta)))
             suma += red["umbral2"][k]
             salida_final.append(suma)
-        
         # Aplicar softmax
         salida_final_softmax = cls.softmax(salida_final)
         return salida_oculta, salida_final, salida_final_softmax
     @classmethod
     def entrenar(cls, red, epocas=60):
+
         num_muestras = len(red["x"])
         batch_size = red["batch_size"]
-        
+        print(red['pesos1'])
+        print(red['umbral1'])
+                
         for epoca in range(epocas):
             error_total = 0
             indices = list(range(num_muestras))
@@ -133,6 +136,7 @@ class Red:
                 grad_umbral2 = [0 for _ in range(len(red["y"][0]))]
                 
                 batch_error = 0
+                
                 
                 for idx in batch_indices:
                     entrada = red["x"][idx]
@@ -171,7 +175,7 @@ class Red:
                     for j in range(len(red["pesos1"])):
                         red["pesos2"][k][j] -= red["tasa"] * grad_pesos2[k][j] / batch_len
                     red["umbral2"][k] -= red["tasa"] * grad_umbral2[k] / batch_len
-                
+
                 for j in range(len(red["pesos1"])):
                     for i in range(len(red["x"][0])):
                         red["pesos1"][j][i] -= red["tasa"] * grad_pesos1[j][i] / batch_len
@@ -190,7 +194,8 @@ class Red:
                 raise ValueError(f"Entrada debe tener {len(red['x'][0])} elementos por imagen.")
 
             _, _, salida_final = cls.forward_pass(red, imagen)
+            
             prediccion = salida_final.index(max(salida_final))
-            print(f"Predicción: {prediccion} (salidas: {['%.4f' % s for s in salida_final]})")
+            print(f"Predicción: {imagen} salidas: {['%.4f' % s for s in salida_final]})")
             predicciones.append(prediccion)
         return predicciones

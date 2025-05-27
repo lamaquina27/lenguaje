@@ -1,0 +1,7 @@
+traigase entrada;
+
+inicio {
+    mueche(<INGRESA TU NOMBRE: >);
+    var r = ..entrada.texto();
+    mueche(<Hola > + r + <, es un gusto conocerte!>);
+}

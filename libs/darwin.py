@@ -50,7 +50,7 @@ class Darwin:
         x2 = (x*3.141592653589793238462643383279502884197169399375105820974944)/  180
         for i in range(10):
             signo = (-1) ** i
-            resultado += signo * (x2 ** (2 * i + 1)) / cls.factorial(2 * i + 1)
+            resultado += signo * (x ** (2 * i + 1)) / cls.factorial(2 * i + 1)
         
         return resultado
 
@@ -84,5 +84,6 @@ class Darwin:
 
         b = (n * sum_xy - sum_x * sum_y) / (n * sum_x2 - sum_x ** 2)
         a = (sum_y / n) - b * (sum_x / n)
-        
         print(f"La ecuacion de la regresion lineal es : y=({round(a,2)})+({round(b,2)})x")
+        lista = [(round(a,2)), (round(b,2))]
+        return lista
